@@ -1,0 +1,27 @@
+export type PatientFormDataType = {
+  patientEmail: string;
+  surname: string;
+  faculty: string;
+  maritalStatus: string;
+  age: undefined | number;
+  otherNames: string;
+  department: string;
+  noOfChildren: undefined | number;
+  sex: string;
+  heatInHeadOrBody: string;
+  epilepsy: string;
+  hypertension: string;
+  mentalIllness: string;
+  tuberculosis: string;
+  heartDisease: string;
+  gonorrheaOrSyphilis: string;
+  pepticUlcer: string;
+  piles: string;
+  diabetes: string;
+  otherIllness: string;
+  dateOfIllness: string;
+  illnessDuration: string;
+  hospital: string;
+  doctorName: string;
+  address: string;
+};
