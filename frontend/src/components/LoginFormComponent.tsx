@@ -1,22 +1,28 @@
+// LIBRARY IMPORTS
 import { useState } from "react";
 
+// FUNCTION OR COMPONENT IMPORTS
+import { useAuthContext } from "./../hooks/useAuthContext";
+
 const LoginFormComponent = () => {
-  const [email, setEmail] = useState("");
+  const { login } = useAuthContext();
+
+  const [schoolEmail, setSchoolEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
 
   return (
-    <form className="w-1/2">
+    <form className="w-1/2" onSubmit={(e) => login(e, schoolEmail, password)}>
       <h3>Log In to your account</h3>
 
       <div className="mt-5">
         <div className="flex flex-col mb-7">
-          <label htmlFor="email">School Email:</label>
+          <label htmlFor="schoolEmail">School Email:</label>
           <input
             type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            id="schoolEmail"
+            value={schoolEmail}
+            onChange={(e) => setSchoolEmail(e.target.value)}
             placeholder="Type out your school email here..."
             className="focus:!outline-none p-2 bg-white border border-t-0 border-l-0 border-r-0 border-b-black w-full"
           />

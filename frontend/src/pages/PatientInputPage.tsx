@@ -1,6 +1,19 @@
+// LIBRARY IMPORTS
+import {useNavigate} from "react-router-dom";
+
+// FUNCTION IMPORTS
 import PatientInputFormComponent from "../components/PatientInputFormComponent";
+import { useAuthContext } from "./../hooks/useAuthContext";
 
 const PatientInputPage = () => {
+  const { user, logout } = useAuthContext();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
+
   return (
     <>
       <header className="flex justify-between">

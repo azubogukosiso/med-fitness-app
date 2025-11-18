@@ -1,16 +1,45 @@
-import { Routes, Route } from "react-router-dom";
+// LIBRARY IMPORTS
+import { Routes, Route, Navigate } from "react-router-dom";
+
+// FUNCTION OR COMPONENT IMPORTS
+import ProtectedRouteComponent from "./components/ProtectedRouteComponent";
+import PublicRouteComponent from "./components/PublicRouteComponent";
 
 import LoginPage from "./pages/LoginPage";
 import PatientInputPage from "./pages/PatientInputPage";
 import DoctorInputPage from "./pages/DoctorInputPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
     <div className="min-h-screen p-5">
       <Routes>
-        <Route path="/" element={<LoginPage />}></Route>
-        <Route path="/patient" element={<PatientInputPage />}></Route>      
-        <Route path="/doctor" element={<DoctorInputPage />}></Route>
+        <Route path="/" element={<Navigate to="/patient" />}></Route>
+        <Route
+          path="/login"
+          element={
+            <PublicRouteComponent>
+              <LoginPage />
+            </PublicRouteComponent>
+          }
+        ></Route>
+        <Route
+          path="/patient"
+          element={
+            <ProtectedRouteComponent requiredRole="patient">
+              <PatientInputPage />
+            </ProtectedRouteComponent>
+          }
+        ></Route>
+        <Route
+          path="/doctor"
+          element={
+            <ProtectedRouteComponent requiredRole="doctor">
+              <DoctorInputPage />
+            </ProtectedRouteComponent>
+          }
+        ></Route>
+        <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
     </div>
   );

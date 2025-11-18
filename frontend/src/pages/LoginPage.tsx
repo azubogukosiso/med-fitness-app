@@ -1,3 +1,4 @@
+// FUNCTION OR COMPONENT IMPORTS
 import LoginFormComponent from "../components/LoginFormComponent";
 
 const LoginPage = () => {
@@ -14,12 +15,12 @@ const LoginPage = () => {
           <p>Log in to your patient/doctor account</p>
         </div>
       </header>
-        
-    <div className="flex flex-col h-[79vh] items-center justify-center">
-      <LoginFormComponent />
+
+      <div className="flex flex-col h-[79vh] items-center justify-center">
+        <LoginFormComponent />
       </div>
     </>
   );
-}
+};
 
-export default LoginPage
+export default LoginPage;
