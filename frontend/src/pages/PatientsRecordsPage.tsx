@@ -1,6 +1,7 @@
-import DoctorInputFormComponent from "../components/DoctorInputFormComponent";
+// FUNCTION OR COMPONENT IMPORTS
+import PatientsRecordsComponent from "../components/PatientsRecordsComponent";
 
-const DoctorInputPage = () => {
+const PatientsRecordsPage = () => {
   return (
     <>
       <header className="flex justify-between">
@@ -10,16 +11,16 @@ const DoctorInputPage = () => {
         </div>
 
         <div className="flex flex-col w-[20%] justify-end items-end">
-          <h3>Patient Data</h3>
+          <h3>Patients' Records</h3>
           <p className="text-right">
-            To be filled by the medical center doctor
+            All patients' records for review by medical center personnel
           </p>
         </div>
       </header>
 
-      <DoctorInputFormComponent />
+      <PatientsRecordsComponent />
     </>
   );
 };
 
-export default DoctorInputPage;
+export default PatientsRecordsPage;

@@ -2,42 +2,50 @@
 import { useState } from "react";
 
 // TYPE IMPORTS
-import type { PatientFormDataType } from "../types/PatientFormDataType";
+import type { PatientFormDataFromPatientInputType } from "../types/PatientFormDataFromPatientInputType";
 
 // FUNCTION IMPORTS
-import { savePatientData } from "../functions/savePatientData";
+import { savePatientDataFromPatientInput } from "../functions/savePatientDataFromPatientInputUtils/savePatientDataFromPatientInput";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const PatientInputFormComponent = () => {
-  const [formData, setFormData] = useState<PatientFormDataType>({
-    patientEmail: "patient@email.com",
-    surname: "",
-    faculty: "",
-    maritalStatus: "",
-    age: undefined,
-    otherNames: "",
-    department: "",
-    noOfChildren: undefined,
-    sex: "",
-    heatInHeadOrBody: "",
-    epilepsy: "",
-    hypertension: "",
-    mentalIllness: "",
-    tuberculosis: "",
-    heartDisease: "",
-    gonorrheaOrSyphilis: "",
-    pepticUlcer: "",
-    piles: "",
-    diabetes: "",
-    otherIllness: "",
-    dateOfIllness: "",
-    illnessDuration: "",
-    hospital: "",
-    doctorName: "",
-    address: "",
-  });
+  const { user } = useAuthContext();
+
+  const [formData, setFormData] = useState<PatientFormDataFromPatientInputType>(
+    {
+      patientEmail: user?.schoolEmail as string,
+      surname: undefined,
+      faculty: undefined,
+      maritalStatus: undefined,
+      age: undefined,
+      otherNames: undefined,
+      department: undefined,
+      noOfChildren: undefined,
+      sex: undefined,
+      heatInHeadOrBody: undefined,
+      epilepsy: undefined,
+      hypertension: undefined,
+      mentalIllness: undefined,
+      tuberculosis: undefined,
+      heartDisease: undefined,
+      gonorrheaOrSyphilis: undefined,
+      pepticUlcer: undefined,
+      piles: undefined,
+      diabetes: undefined,
+      otherIllness: undefined,
+      dateOfIllness: undefined,
+      illnessDuration: undefined,
+      hospital: undefined,
+      doctorName: undefined,
+      address: undefined,
+    }
+  );
 
   return (
-    <form className="mt-10" onSubmit={(e) => savePatientData(e, formData)}>
+    <form
+      className="mt-10"
+      onSubmit={(e) => savePatientDataFromPatientInput(e, formData)}
+    >
       <div className="p-5">
         <h3>Personal Data</h3>
 
@@ -50,7 +58,7 @@ const PatientInputFormComponent = () => {
               <input
                 type="text"
                 id="surname"
-                value={formData.surname}
+                value={formData.surname ?? ""}
                 onChange={(e) =>
                   setFormData((prev) => ({ ...prev, surname: e.target.value }))
                 }
@@ -72,7 +80,7 @@ const PatientInputFormComponent = () => {
               <input
                 type="text"
                 id="faculty"
-                value={formData.faculty}
+                value={formData.faculty ?? ""}
                 onChange={(e) =>
                   setFormData((prev) => ({ ...prev, faculty: e.target.value }))
                 }
@@ -91,25 +99,24 @@ const PatientInputFormComponent = () => {
               <label htmlFor="maritalStatus" className="mr-3">
                 Marital Status:
               </label>
-              <input
-                type="text"
+              <select
+                name="maritalStatus"
                 id="maritalStatus"
-                value={formData.maritalStatus}
+                className="focus:!outline-none p-2 bg-white border border-t-0 border-l-0 border-r-0 border-b-black w-full max-w-[80%] cursor-pointer"
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
                     maritalStatus: e.target.value,
                   }))
                 }
-                onBlur={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    maritalStatus: e.target.value.trim(),
-                  }))
-                }
-                placeholder="Type out your marital status here..."
-                className="focus:!outline-none p-2 bg-white border border-t-0 border-l-0 border-r-0 border-b-black w-full max-w-[80%]"
-              />
+              >
+                <option value=""></option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Seperated">Seperated</option>
+                <option value="Divorced">Divorced</option>
+                <option value="Widowed">Widowed</option>
+              </select>
             </div>
 
             <div className="flex flex-col">
@@ -118,6 +125,7 @@ const PatientInputFormComponent = () => {
               </label>
               <input
                 type="number"
+                min="1"
                 id="age"
                 value={formData.age ?? ""}
                 onChange={(e) =>
@@ -147,7 +155,7 @@ const PatientInputFormComponent = () => {
               <input
                 type="text"
                 id="otherNames"
-                value={formData.otherNames}
+                value={formData.otherNames ?? ""}
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
@@ -172,7 +180,7 @@ const PatientInputFormComponent = () => {
               <input
                 type="text"
                 id="department"
-                value={formData.department}
+                value={formData.department ?? ""}
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
@@ -196,6 +204,7 @@ const PatientInputFormComponent = () => {
               </label>
               <input
                 type="number"
+                min="1"
                 id="noOfChildren"
                 value={formData.noOfChildren ?? ""}
                 onChange={(e) =>
@@ -222,7 +231,7 @@ const PatientInputFormComponent = () => {
                 <input
                   type="radio"
                   name="sex"
-                  value="male"
+                  value="Male"
                   className="mr-2"
                   onChange={(e) =>
                     setFormData((prev) => ({
@@ -237,7 +246,7 @@ const PatientInputFormComponent = () => {
                 <input
                   type="radio"
                   name="sex"
-                  value="female"
+                  value="Female"
                   className="mr-2"
                   onChange={(e) =>
                     setFormData((prev) => ({
@@ -606,14 +615,14 @@ const PatientInputFormComponent = () => {
           <div className="w-1/2">
             <div className="mt-5 flex flex-col">
               <label htmlFor="otherIllness">
-                If the illness you suffered isn't listed above, kindly type it
+                If an illness you suffered isn't listed above, kindly type it
                 out here:
               </label>
               <input
                 type="text"
                 id="otherIllness"
                 placeholder="Type out the illness here..."
-                value={formData.otherIllness}
+                value={formData.otherIllness ?? ""}
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
@@ -637,7 +646,7 @@ const PatientInputFormComponent = () => {
               <input
                 type="date"
                 id="dateOfIllness"
-                value={formData.dateOfIllness}
+                value={formData.dateOfIllness ?? ""}
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
@@ -660,9 +669,10 @@ const PatientInputFormComponent = () => {
               </label>
               <input
                 type="number"
+                min="1"
                 id="illnessDuration"
                 placeholder="Type out the duration of the illness here..."
-                value={formData.illnessDuration}
+                value={formData.illnessDuration ?? ""}
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
@@ -689,7 +699,7 @@ const PatientInputFormComponent = () => {
                 type="text"
                 id="hospital"
                 placeholder="Type out the hospital of treatment here..."
-                value={formData.hospital}
+                value={formData.hospital ?? ""}
                 onChange={(e) =>
                   setFormData((prev) => ({ ...prev, hospital: e.target.value }))
                 }
@@ -711,7 +721,7 @@ const PatientInputFormComponent = () => {
                 type="text"
                 id="doctorName"
                 placeholder="Type out the doctor's name here..."
-                value={formData.doctorName}
+                value={formData.doctorName ?? ""}
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
@@ -736,7 +746,7 @@ const PatientInputFormComponent = () => {
                 type="text"
                 id="address"
                 placeholder="Type out the doctor's address here..."
-                value={formData.address}
+                value={formData.address ?? ""}
                 onChange={(e) =>
                   setFormData((prev) => ({ ...prev, address: e.target.value }))
                 }

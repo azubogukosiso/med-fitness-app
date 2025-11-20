@@ -36,7 +36,7 @@ const ProtectedRouteComponent = ({
       return <Navigate to="/patient" replace />;
     }
     if (requiredRole === "patient" && user?.isDoctor) {
-      return <Navigate to="/doctor" replace />;
+      return <Navigate to="/doctor/records" replace />;
     }
   }
 

@@ -16,11 +16,13 @@ const PublicRouteComponent = ({ children }: PublicRouteComponentProps) => {
       </div>
     );
   }
-  
+
   if (user) {
-    return <Navigate to={user.isDoctor ? "/doctor" : "/patient"} replace />;
+    return (
+      <Navigate to={user.isDoctor ? "/doctor/records" : "/patient"} replace />
+    );
   }
-  
+
   return <>{children}</>;
 };
 

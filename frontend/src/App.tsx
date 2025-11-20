@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import PatientInputPage from "./pages/PatientInputPage";
 import DoctorInputPage from "./pages/DoctorInputPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import PatientsRecordsPage from "./pages/PatientsRecordsPage";
 
 function App() {
   return (
@@ -32,13 +33,21 @@ function App() {
           }
         ></Route>
         <Route
-          path="/doctor"
+          path="/doctor/records"
+          element={
+            <ProtectedRouteComponent requiredRole="doctor">
+              <PatientsRecordsPage />
+            </ProtectedRouteComponent>
+          }
+        ></Route>
+        {/* <Route
+          path="/doctor/records"
           element={
             <ProtectedRouteComponent requiredRole="doctor">
               <DoctorInputPage />
             </ProtectedRouteComponent>
           }
-        ></Route>
+        ></Route> */}
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
     </div>

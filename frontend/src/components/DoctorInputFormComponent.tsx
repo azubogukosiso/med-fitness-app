@@ -19,7 +19,7 @@ import GastrointestinalTractSystemComponent from "./DoctorInputFormComponentSect
 import GentoUrinarySystemComponent from "./DoctorInputFormComponentSections/GentoUrinarySystemComponent";
 
 import { convertToBase64 } from "../functions/convertToBase64";
-import { savePatientDataForDoctor } from "../functions/savePatientDataForDoctor";
+import { savePatientDataFromDoctorInput } from "../functions/savePatientDataFromDoctorInput";
 
 const DoctorInputFormComponent = () => {
   const [relevantExaminationFormData, setRelevantExaminationFormData] =
@@ -83,7 +83,7 @@ const DoctorInputFormComponent = () => {
     <form
       className="mt-10"
       onSubmit={(e) =>
-        savePatientDataForDoctor(e, {
+        savePatientDataFromDoctorInput(e, {
           relevantExaminationFormData,
           cardiovascularSystemsFormData,
           centralNervousSystemFormData,

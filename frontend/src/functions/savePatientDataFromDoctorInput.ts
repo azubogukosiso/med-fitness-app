@@ -1,7 +1,7 @@
 // TYPE IMPORTS
-import type { PatientFormDataForDoctorType } from "../types/PatientFormDataForDoctorType";
+import type { PatientFormDataFromDoctorInputType } from "../types/PatientFormDataFromDoctorInputType";
 
-export const savePatientDataForDoctor = (
+export const savePatientDataFromDoctorInput = (
   e: React.FormEvent<HTMLFormElement>,
   {
     relevantExaminationFormData,
@@ -11,7 +11,7 @@ export const savePatientDataForDoctor = (
     gastrointestinalTractSystemFormData,
     gentoUrinarySystemFormData,
     commentsFormData,
-  }: PatientFormDataForDoctorType
+  }: PatientFormDataFromDoctorInputType
 ) => {
   e.preventDefault();
 
