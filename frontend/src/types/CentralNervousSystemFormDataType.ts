@@ -1,5 +1,5 @@
 export type CentralNervousSystemFormDataType = {
-  mmr: string;
-  ctScan: string;
-  wellBeing: string;
+  mmr: string | undefined;
+  ctScan: string | undefined;
+  wellBeing: string | undefined;
 };

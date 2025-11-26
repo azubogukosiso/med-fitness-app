@@ -2,12 +2,12 @@
 import { Link } from "react-router-dom";
 
 // TYPE IMPORTS
-import type { PatientFormDataFromPatientInputType } from "../types/PatientFormDataFromPatientInputType";
+import type { ExtendedPatientRecords } from "../types/ExtendedPatientRecordsType";
 
 type PatientRecordsCardComponentProps = {
-  record: PatientFormDataFromPatientInputType;
+  record: ExtendedPatientRecords;
   index: number;
-  records: PatientFormDataFromPatientInputType[];
+  records: ExtendedPatientRecords[];
 };
 
 const PatientRecordsCardComponent = ({
@@ -31,13 +31,13 @@ const PatientRecordsCardComponent = ({
 
       <div className="mt-3">
         <Link
-          to="#"
+          to={`/doctor/record?id=${record._id}`}
           className="inline-block px-4 py-2 bg-black text-white rounded-md active:scale-95 transition-all mr-3"
         >
           View Full Records
         </Link>
         <Link
-          to="#"
+          to={`/doctor/report?id=${record._id}`}
           className="inline-block px-4 py-2 bg-black text-white rounded-md active:scale-95 transition-all"
         >
           Enter Doctor's Report

@@ -1,6 +1,6 @@
 export type GastrointestinalTractSystemFormDataType = {
-  abdominalTenderness: string;
-  liver: string;
-  anyOtherMasses: string;
-  abdominalMass: string;
+  abdominalTenderness: string | undefined;
+  liver: string | undefined;
+  anyOtherMasses: string | undefined;
+  abdominalMass: string | undefined;
 };

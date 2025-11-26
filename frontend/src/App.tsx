@@ -10,6 +10,7 @@ import PatientInputPage from "./pages/PatientInputPage";
 import DoctorInputPage from "./pages/DoctorInputPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import PatientsRecordsPage from "./pages/PatientsRecordsPage";
+import FullPatientRecordsPage from "./pages/FullPatientRecordsPage";
 
 function App() {
   return (
@@ -40,14 +41,22 @@ function App() {
             </ProtectedRouteComponent>
           }
         ></Route>
-        {/* <Route
-          path="/doctor/records"
+        <Route
+          path="/doctor/report"
           element={
             <ProtectedRouteComponent requiredRole="doctor">
               <DoctorInputPage />
             </ProtectedRouteComponent>
           }
-        ></Route> */}
+        ></Route>
+        <Route
+          path="/doctor/record"
+          element={
+            <ProtectedRouteComponent requiredRole="doctor">
+              <FullPatientRecordsPage />
+            </ProtectedRouteComponent>
+          }
+        ></Route>
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
     </div>

@@ -22,7 +22,7 @@ const CentralNervousSystemComponent = ({
           <input
             type="text"
             id="mmr"
-            value={centralNervousSystemFormData.mmr}
+            value={centralNervousSystemFormData.mmr ?? ""}
             onChange={(e) =>
               setCentralNervousSystemFormData((prev) => ({
                 ...prev,
@@ -39,7 +39,7 @@ const CentralNervousSystemComponent = ({
           <input
             type="text"
             id="ctScan"
-            value={centralNervousSystemFormData.ctScan}
+            value={centralNervousSystemFormData.ctScan ?? ""}
             onChange={(e) =>
               setCentralNervousSystemFormData((prev) => ({
                 ...prev,
@@ -58,7 +58,7 @@ const CentralNervousSystemComponent = ({
           <input
             type="text"
             id="wellBeing"
-            value={centralNervousSystemFormData.wellBeing}
+            value={centralNervousSystemFormData.wellBeing ?? ""}
             onChange={(e) =>
               setCentralNervousSystemFormData((prev) => ({
                 ...prev,

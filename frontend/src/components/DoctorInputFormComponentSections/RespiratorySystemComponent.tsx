@@ -22,7 +22,7 @@ const RespiratorySystemComponent = ({
           <input
             type="text"
             id="spo2"
-            value={respiratorySystemFormData.spo2}
+            value={respiratorySystemFormData.spo2 ?? ""}
             onChange={(e) =>
               setRespiratorySystemFormData((prev) => ({
                 ...prev,
@@ -39,7 +39,7 @@ const RespiratorySystemComponent = ({
           <input
             type="text"
             id="respiratoryRate"
-            value={respiratorySystemFormData.respiratoryRate}
+            value={respiratorySystemFormData.respiratoryRate ?? ""}
             onChange={(e) =>
               setRespiratorySystemFormData((prev) => ({
                 ...prev,
@@ -56,7 +56,7 @@ const RespiratorySystemComponent = ({
           <input
             type="text"
             id="precautionNote"
-            value={respiratorySystemFormData.precautionNote}
+            value={respiratorySystemFormData.precautionNote ?? ""}
             onChange={(e) =>
               setRespiratorySystemFormData((prev) => ({
                 ...prev,
@@ -73,7 +73,7 @@ const RespiratorySystemComponent = ({
           <input
             type="text"
             id="charOfBreath"
-            value={respiratorySystemFormData.charOfBreath}
+            value={respiratorySystemFormData.charOfBreath ?? ""}
             onChange={(e) =>
               setRespiratorySystemFormData((prev) => ({
                 ...prev,

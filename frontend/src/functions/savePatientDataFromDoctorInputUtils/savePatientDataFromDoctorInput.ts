@@ -1,5 +1,8 @@
 // TYPE IMPORTS
-import type { PatientFormDataFromDoctorInputType } from "../types/PatientFormDataFromDoctorInputType";
+import type { PatientFormDataFromDoctorInputType } from "../../types/PatientFormDataFromDoctorInputType";
+
+// FUNCTION IMPORTS
+import { savePatientDataRequest } from "./savePatientDataRequest";
 
 export const savePatientDataFromDoctorInput = (
   e: React.FormEvent<HTMLFormElement>,
@@ -11,7 +14,8 @@ export const savePatientDataFromDoctorInput = (
     gastrointestinalTractSystemFormData,
     gentoUrinarySystemFormData,
     commentsFormData,
-  }: PatientFormDataFromDoctorInputType
+  }: PatientFormDataFromDoctorInputType,
+  recordId: string
 ) => {
   e.preventDefault();
 
@@ -25,5 +29,5 @@ export const savePatientDataFromDoctorInput = (
     commentsFormData,
   };
 
-  console.log(formData);
+  savePatientDataRequest(formData, recordId);
 };

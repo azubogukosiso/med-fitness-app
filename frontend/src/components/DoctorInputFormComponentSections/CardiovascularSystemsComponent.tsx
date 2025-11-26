@@ -22,7 +22,7 @@ const CardiovascularSystemsComponent = ({
           <input
             type="text"
             id="xRay"
-            value={cardiovascularSystemsFormData.xRay}
+            value={cardiovascularSystemsFormData.xRay ?? ""}
             onChange={(e) =>
               setCardiovascularSystemsFormData((prev) => ({
                 ...prev,
@@ -39,7 +39,7 @@ const CardiovascularSystemsComponent = ({
           <input
             type="text"
             id="bp"
-            value={cardiovascularSystemsFormData.bp}
+            value={cardiovascularSystemsFormData.bp ?? ""}
             onChange={(e) =>
               setCardiovascularSystemsFormData((prev) => ({
                 ...prev,
@@ -56,7 +56,7 @@ const CardiovascularSystemsComponent = ({
           <input
             type="text"
             id="cardiacSound"
-            value={cardiovascularSystemsFormData.cardiacSound}
+            value={cardiovascularSystemsFormData.cardiacSound ?? ""}
             onChange={(e) =>
               setCardiovascularSystemsFormData((prev) => ({
                 ...prev,
@@ -73,7 +73,7 @@ const CardiovascularSystemsComponent = ({
           <input
             type="text"
             id="pulseRate"
-            value={cardiovascularSystemsFormData.pulseRate}
+            value={cardiovascularSystemsFormData.pulseRate ?? ""}
             onChange={(e) =>
               setCardiovascularSystemsFormData((prev) => ({
                 ...prev,

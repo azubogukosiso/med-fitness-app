@@ -4,27 +4,31 @@ const patientDataSchema = new mongoose.Schema(
   {
     address: {
       type: String,
-      default: undefined,
+      default: null,
     },
     age: {
       type: Number,
-      default: undefined,
+      default: null,
     },
     dateOfIllness: {
       type: String,
-      default: undefined,
+      default: null,
     },
     department: {
       type: String,
-      default: undefined,
+      default: null,
     },
     diabetes: {
       type: String,
-      default: undefined,
+      default: null,
     },
     doctorName: {
       type: String,
-      default: undefined,
+      default: null,
+    },
+    doctorReport: {
+      type: Object,
+      default: null,
     },
     epilepsy: {
       type: String,
@@ -32,7 +36,7 @@ const patientDataSchema = new mongoose.Schema(
     },
     faculty: {
       type: String,
-      default: undefined,
+      default: null,
     },
     gonorrheaOrSyphilis: {
       type: String,
@@ -48,7 +52,7 @@ const patientDataSchema = new mongoose.Schema(
     },
     hospital: {
       type: String,
-      default: undefined,
+      default: null,
     },
     hypertension: {
       type: String,
@@ -56,31 +60,31 @@ const patientDataSchema = new mongoose.Schema(
     },
     illnessDuration: {
       type: String,
-      default: undefined,
+      default: null,
     },
     maritalStatus: {
       type: String,
-      default: undefined,
+      default: null,
     },
     mentalIllness: {
       type: String,
       default: "no",
     },
     noOfChildren: {
-      type: String,
-      default: undefined,
+      type: Number,
+      default: null,
     },
     otherIllness: {
       type: String,
-      default: undefined,
+      default: null,
     },
     otherNames: {
       type: String,
-      default: undefined,
+      default: null,
     },
     patientEmail: {
       type: String,
-      default: undefined,
+      default: null,
     },
     pepticUlcer: {
       type: String,
@@ -92,15 +96,15 @@ const patientDataSchema = new mongoose.Schema(
     },
     schoolEmail: {
       type: String,
-      default: undefined,
+      default: null,
     },
     sex: {
       type: String,
-      default: undefined,
+      default: null,
     },
     surname: {
       type: String,
-      default: undefined,
+      default: null,
     },
     tuberculosis: {
       type: String,

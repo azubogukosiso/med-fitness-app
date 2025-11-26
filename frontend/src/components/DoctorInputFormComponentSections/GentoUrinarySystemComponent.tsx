@@ -22,7 +22,7 @@ const GentoUrinarySystemComponent = ({
           <input
             type="text"
             id="urine"
-            value={gentoUrinarySystemFormData.urine}
+            value={gentoUrinarySystemFormData.urine ?? ""}
             onChange={(e) =>
               setGentoUrinarySystemFormData((prev) => ({
                 ...prev,
@@ -39,7 +39,7 @@ const GentoUrinarySystemComponent = ({
           <input
             type="text"
             id="albumen"
-            value={gentoUrinarySystemFormData.albumen}
+            value={gentoUrinarySystemFormData.albumen ?? ""}
             onChange={(e) =>
               setGentoUrinarySystemFormData((prev) => ({
                 ...prev,
@@ -56,7 +56,7 @@ const GentoUrinarySystemComponent = ({
           <input
             type="text"
             id="sugar"
-            value={gentoUrinarySystemFormData.sugar}
+            value={gentoUrinarySystemFormData.sugar ?? ""}
             onChange={(e) =>
               setGentoUrinarySystemFormData((prev) => ({
                 ...prev,
@@ -73,7 +73,7 @@ const GentoUrinarySystemComponent = ({
           <input
             type="text"
             id="deposit"
-            value={gentoUrinarySystemFormData.deposit}
+            value={gentoUrinarySystemFormData.deposit ?? ""}
             onChange={(e) =>
               setGentoUrinarySystemFormData((prev) => ({
                 ...prev,

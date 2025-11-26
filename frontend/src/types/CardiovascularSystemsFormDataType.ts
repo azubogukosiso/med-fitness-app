@@ -1,6 +1,6 @@
 export type CardiovascularSystemsFormDataType = {
-  xRay: string;
-  bp: string;
-  cardiacSound: string;
-  pulseRate: string;
+  xRay: string | undefined;
+  bp: string | undefined;
+  cardiacSound: string | undefined;
+  pulseRate: string | undefined;
 };

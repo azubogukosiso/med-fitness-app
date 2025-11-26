@@ -22,7 +22,9 @@ const GastrointestinalTractSystemComponent = ({
           <input
             type="text"
             id="abdominalTenderness"
-            value={gastrointestinalTractSystemFormData.abdominalTenderness}
+            value={
+              gastrointestinalTractSystemFormData?.abdominalTenderness ?? ""
+            }
             onChange={(e) =>
               setGastrointestinalTractSystemFormData((prev) => ({
                 ...prev,
@@ -39,7 +41,7 @@ const GastrointestinalTractSystemComponent = ({
           <input
             type="text"
             id="liver"
-            value={gastrointestinalTractSystemFormData.liver}
+            value={gastrointestinalTractSystemFormData.liver ?? ""}
             onChange={(e) =>
               setGastrointestinalTractSystemFormData((prev) => ({
                 ...prev,
@@ -56,7 +58,7 @@ const GastrointestinalTractSystemComponent = ({
           <input
             type="text"
             id="anyOtherMasses"
-            value={gastrointestinalTractSystemFormData.anyOtherMasses}
+            value={gastrointestinalTractSystemFormData.anyOtherMasses ?? ""}
             onChange={(e) =>
               setGastrointestinalTractSystemFormData((prev) => ({
                 ...prev,
@@ -73,7 +75,7 @@ const GastrointestinalTractSystemComponent = ({
           <input
             type="text"
             id="abdominalMass"
-            value={gastrointestinalTractSystemFormData.abdominalMass}
+            value={gastrointestinalTractSystemFormData.abdominalMass ?? ""}
             onChange={(e) =>
               setGastrointestinalTractSystemFormData((prev) => ({
                 ...prev,

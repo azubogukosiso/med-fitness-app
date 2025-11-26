@@ -1,0 +1,42 @@
+[
+  {
+    "illness": "Heat In head or body",
+    "index": 0
+  },
+  {
+    "illness": "Epilepsy",
+    "index": 1
+  },
+  {
+    "illness": "Hypertension",
+    "index": 2
+  },
+  {
+    "illness": "Mental Illness",
+    "index": 3
+  },
+  {
+    "illness": "Tuberculosis",
+    "index": 4
+  },
+  {
+    "illness": "Heart Disease",
+    "index": 5
+  },
+  {
+    "illness": "Gonorrhea or Syphilis",
+    "index": 6
+  },
+  {
+    "illness": "Peptic Ulcer",
+    "index": 7
+  },
+  {
+    "illness": "Piles",
+    "index": 8
+  },
+  {
+    "illness": "Diabetes",
+    "index": 9
+  }
+]

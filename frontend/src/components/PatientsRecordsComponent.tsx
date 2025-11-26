@@ -1,37 +1,21 @@
-// LIBRARY IMPORTS
-import { useQuery } from "@tanstack/react-query";
-
 // FUNCTION OR COMPONENT IMPORTS
 import PatientRecordsCardComponent from "../components/PatientRecordsCardComponent";
+import { usePatientsRecordsContext } from "./../hooks/usePatientsRecordsContext";
 
 // TYPE IMPORTS
-import type { PatientFormDataFromPatientInputType } from "../types/PatientFormDataFromPatientInputType";
-
-type ExtendedPatientRecords = PatientFormDataFromPatientInputType & {
-  _id: string;
-};
+import type { ExtendedPatientRecords } from "../types/ExtendedPatientRecordsType";
 
 const PatientsRecordsComponent = () => {
-  const { isPending, error, data } = useQuery({
-    queryKey: ["PatientRecordsPageData"],
-    queryFn: () =>
-      fetch("http://localhost:3000/api/patient/records").then((res) =>
-        res.json()
-      ),
-  });
-
-  if (isPending) return "Loading...";
-
-  if (error) return "An error has occured: " + error.message;
+  const { patientsRecords } = usePatientsRecordsContext();
 
   return (
     <div className="mt-10">
-      {data.records.map((record: ExtendedPatientRecords, index: number) => (
+      {patientsRecords?.map((record: ExtendedPatientRecords, index: number) => (
         <PatientRecordsCardComponent
           key={record?._id}
           index={index}
           record={record}
-          records={data.records}
+          records={patientsRecords}
         />
       ))}
     </div>

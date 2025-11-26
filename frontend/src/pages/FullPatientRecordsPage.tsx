@@ -2,14 +2,19 @@
 import { useLocation } from "react-router-dom";
 
 // FUNCTION OR COMPONENT IMPORTS
-import DoctorInputFormComponent from "../components/DoctorInputFormComponent";
+import FullPatientRecordsComponent from "../components/FullPatientRecordsComponent";
 
-const DoctorInputPage = () => {
+import { usePatientsRecordsContext } from "./../hooks/usePatientsRecordsContext";
+
+const FullPatientRecordsPage = () => {
   const location = useLocation();
+  const { getPatientRecordsById } = usePatientsRecordsContext();
 
   const queryParams = new URLSearchParams(location.search);
 
   const recordId = queryParams.get("id");
+
+  const patientRecords = getPatientRecordsById(recordId as string);
 
   return (
     <>
@@ -20,16 +25,16 @@ const DoctorInputPage = () => {
         </div>
 
         <div className="flex flex-col w-[20%] justify-end items-end">
-          <h3>Patient Data</h3>
+          <h3>Full Patient Records</h3>
           <p className="text-right">
-            To be filled by the medical center doctor
+            Full patient record details for review by medical center personnel
           </p>
         </div>
       </header>
 
-      <DoctorInputFormComponent recordId={recordId as string} />
+      <FullPatientRecordsComponent patientRecords={patientRecords} />
     </>
   );
 };
 
-export default DoctorInputPage;
+export default FullPatientRecordsPage;

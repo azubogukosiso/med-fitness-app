@@ -1,3 +1,5 @@
+// THESE ARE FIELDS FOR PATIENT RECORDS BEFORE SAVING TO DATABASE
+
 export type PatientFormDataFromPatientInputType = {
   patientEmail: undefined | string;
   surname: undefined | string;

@@ -1,6 +1,6 @@
 export type GentoUrinarySystemFormDataType = {
-  urine: string;
-  albumen: string;
-  sugar: string;
-  deposit: string;
+  urine: string | undefined;
+  albumen: string | undefined;
+  sugar: string | undefined;
+  deposit: string | undefined;
 };

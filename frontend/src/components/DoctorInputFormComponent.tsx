@@ -18,80 +18,89 @@ import RespiratorySystemComponent from "./DoctorInputFormComponentSections/Respi
 import GastrointestinalTractSystemComponent from "./DoctorInputFormComponentSections/GastrointestinalTractSystemComponent";
 import GentoUrinarySystemComponent from "./DoctorInputFormComponentSections/GentoUrinarySystemComponent";
 
-import { convertToBase64 } from "../functions/convertToBase64";
-import { savePatientDataFromDoctorInput } from "../functions/savePatientDataFromDoctorInput";
+import { savePatientDataFromDoctorInput } from "../functions/savePatientDataFromDoctorInputUtils/savePatientDataFromDoctorInput";
 
-const DoctorInputFormComponent = () => {
+type DoctorInputFormComponentProps = {
+  recordId: string;
+};
+
+const DoctorInputFormComponent = ({
+  recordId,
+}: DoctorInputFormComponentProps) => {
   const [relevantExaminationFormData, setRelevantExaminationFormData] =
     useState<RelevantExaminationFormDataType>({
       height: undefined,
-      genotype: "",
+      genotype: undefined,
       weight: undefined,
-      bloodGroup: "",
+      bloodGroup: undefined,
     });
 
   const [cardiovascularSystemsFormData, setCardiovascularSystemsFormData] =
     useState<CardiovascularSystemsFormDataType>({
-      xRay: "",
-      bp: "",
-      cardiacSound: "",
-      pulseRate: "",
+      xRay: undefined,
+      bp: undefined,
+      cardiacSound: undefined,
+      pulseRate: undefined,
     });
 
   const [centralNervousSystemFormData, setCentralNervousSystemFormData] =
     useState<CentralNervousSystemFormDataType>({
-      mmr: "",
-      ctScan: "",
-      wellBeing: "",
+      mmr: undefined,
+      ctScan: undefined,
+      wellBeing: undefined,
     });
 
   const [respiratorySystemFormData, setRespiratorySystemFormData] =
     useState<RespiratorySystemFormDataType>({
-      spo2: "",
-      respiratoryRate: "",
-      precautionNote: "",
-      charOfBreath: "",
+      spo2: undefined,
+      respiratoryRate: undefined,
+      precautionNote: undefined,
+      charOfBreath: undefined,
     });
 
   const [
     gastrointestinalTractSystemFormData,
     setGastrointestinalTractSystemFormData,
   ] = useState<GastrointestinalTractSystemFormDataType>({
-    abdominalTenderness: "",
-    liver: "",
-    anyOtherMasses: "",
-    abdominalMass: "",
+    abdominalTenderness: undefined,
+    liver: undefined,
+    anyOtherMasses: undefined,
+    abdominalMass: undefined,
   });
 
   const [gentoUrinarySystemFormData, setGentoUrinarySystemFormData] =
     useState<GentoUrinarySystemFormDataType>({
-      urine: "",
-      albumen: "",
-      sugar: "",
-      deposit: "",
+      urine: undefined,
+      albumen: undefined,
+      sugar: undefined,
+      deposit: undefined,
     });
 
   const [commentsFormData, setCommentsFormData] =
     useState<CommentsFormDataType>({
-      commentsByDoctor: "",
-      nameOfDoctor: "",
-      signatureOfDoctor: "",
-      commentsByDirector: "",
+      commentsByDoctor: undefined,
+      nameOfDoctor: undefined,
+      // signatureOfDoctor: undefined,
+      commentsByDirector: undefined,
     });
 
   return (
     <form
       className="mt-10"
       onSubmit={(e) =>
-        savePatientDataFromDoctorInput(e, {
-          relevantExaminationFormData,
-          cardiovascularSystemsFormData,
-          centralNervousSystemFormData,
-          respiratorySystemFormData,
-          gastrointestinalTractSystemFormData,
-          gentoUrinarySystemFormData,
-          commentsFormData,
-        })
+        savePatientDataFromDoctorInput(
+          e,
+          {
+            relevantExaminationFormData,
+            cardiovascularSystemsFormData,
+            centralNervousSystemFormData,
+            respiratorySystemFormData,
+            gastrointestinalTractSystemFormData,
+            gentoUrinarySystemFormData,
+            commentsFormData,
+          },
+          recordId
+        )
       }
     >
       <RelevantExaminationComponent
@@ -136,7 +145,7 @@ const DoctorInputFormComponent = () => {
           <input
             type="text"
             id="commentsByDoctor"
-            value={commentsFormData.commentsByDoctor}
+            value={commentsFormData.commentsByDoctor ?? ""}
             onChange={(e) =>
               setCommentsFormData((prev) => ({
                 ...prev,
@@ -153,7 +162,7 @@ const DoctorInputFormComponent = () => {
           <input
             type="text"
             id="nameOfDoctor"
-            value={commentsFormData.nameOfDoctor}
+            value={commentsFormData.nameOfDoctor ?? ""}
             onChange={(e) =>
               setCommentsFormData((prev) => ({
                 ...prev,
@@ -166,32 +175,13 @@ const DoctorInputFormComponent = () => {
         </div>
 
         <div className="flex flex-col mb-7">
-          <label htmlFor="signatureOfDoctor">Signature of Doctor:</label>
-          <input
-            type="file"
-            id="signatureOfDoctor"
-            onChange={async (e) => {
-              const file = e.target.files?.[0];
-              if (!file) return;
-              const base64 = await convertToBase64(file);
-              setCommentsFormData((prev) => ({
-                ...prev,
-                signatureOfDoctor: base64,
-              }));
-            }}
-            placeholder="Upload image of doctor's digital signature here..."
-            className="focus:!outline-none p-2 bg-white border border-t-0 border-l-0 border-r-0 border-b-black w-full"
-          />
-        </div>
-
-        <div className="flex flex-col mb-7">
           <label htmlFor="signatureOfDoctor">
             Comments by the Director of Medical Services:
           </label>
           <input
             type="text"
             id="commentsByDirector"
-            value={commentsFormData.commentsByDirector}
+            value={commentsFormData.commentsByDirector ?? ""}
             onChange={(e) =>
               setCommentsFormData((prev) => ({
                 ...prev,
