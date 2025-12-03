@@ -1,17 +1,17 @@
 // LIBRARY IMPORTS
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // FUNCTION IMPORTS
 import PatientInputFormComponent from "../components/PatientInputFormComponent";
 import { useAuthContext } from "./../hooks/useAuthContext";
 
 const PatientInputPage = () => {
-  const { user, logout } = useAuthContext();
+  const { logout } = useAuthContext();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     await logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   return (

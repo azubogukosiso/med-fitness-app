@@ -85,7 +85,17 @@ const PatientInputFormComponent = () => {
                 id="faculty"
                 value={formData.faculty ?? ""}
                 onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, faculty: e.target.value }))
+                  setFormData(
+                    e.target.value === ""
+                      ? (prev) => ({
+                          ...prev,
+                          faculty: undefined,
+                        })
+                      : (prev) => ({
+                          ...prev,
+                          faculty: e.target.value,
+                        })
+                  )
                 }
                 onBlur={(e) =>
                   setFormData((prev) => ({
@@ -107,10 +117,17 @@ const PatientInputFormComponent = () => {
                 id="maritalStatus"
                 className="focus:!outline-none p-2 bg-white border border-t-0 border-l-0 border-r-0 border-b-black w-full max-w-[80%] cursor-pointer"
                 onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    maritalStatus: e.target.value,
-                  }))
+                  setFormData(
+                    e.target.value === ""
+                      ? (prev) => ({
+                          ...prev,
+                          maritalStatus: undefined,
+                        })
+                      : (prev) => ({
+                          ...prev,
+                          maritalStatus: e.target.value,
+                        })
+                  )
                 }
               >
                 <option value=""></option>
@@ -160,10 +177,17 @@ const PatientInputFormComponent = () => {
                 id="otherNames"
                 value={formData.otherNames ?? ""}
                 onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    otherNames: e.target.value,
-                  }))
+                  setFormData(
+                    e.target.value === ""
+                      ? (prev) => ({
+                          ...prev,
+                          otherNames: undefined,
+                        })
+                      : (prev) => ({
+                          ...prev,
+                          otherNames: e.target.value,
+                        })
+                  )
                 }
                 onBlur={(e) =>
                   setFormData((prev) => ({
@@ -185,10 +209,17 @@ const PatientInputFormComponent = () => {
                 id="department"
                 value={formData.department ?? ""}
                 onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    department: e.target.value,
-                  }))
+                  setFormData(
+                    e.target.value === ""
+                      ? (prev) => ({
+                          ...prev,
+                          department: undefined,
+                        })
+                      : (prev) => ({
+                          ...prev,
+                          department: e.target.value,
+                        })
+                  )
                 }
                 onBlur={(e) =>
                   setFormData((prev) => ({
@@ -627,10 +658,17 @@ const PatientInputFormComponent = () => {
                 placeholder="Type out the illness here..."
                 value={formData.otherIllness ?? ""}
                 onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    otherIllness: e.target.value,
-                  }))
+                  setFormData(
+                    e.target.value === ""
+                      ? (prev) => ({
+                          ...prev,
+                          otherIllness: undefined,
+                        })
+                      : (prev) => ({
+                          ...prev,
+                          otherIllness: e.target.value,
+                        })
+                  )
                 }
                 onBlur={(e) =>
                   setFormData((prev) => ({
@@ -651,10 +689,17 @@ const PatientInputFormComponent = () => {
                 id="dateOfIllness"
                 value={formData.dateOfIllness ?? ""}
                 onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    dateOfIllness: e.target.value,
-                  }))
+                  setFormData(
+                    e.target.value === ""
+                      ? (prev) => ({
+                          ...prev,
+                          dateOfIllness: undefined,
+                        })
+                      : (prev) => ({
+                          ...prev,
+                          dateOfIllness: e.target.value,
+                        })
+                  )
                 }
                 onBlur={(e) =>
                   setFormData((prev) => ({
@@ -677,10 +722,17 @@ const PatientInputFormComponent = () => {
                 placeholder="Type out the duration of the illness here..."
                 value={formData.illnessDuration ?? ""}
                 onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    illnessDuration: e.target.value,
-                  }))
+                  setFormData(
+                    e.target.value === ""
+                      ? (prev) => ({
+                          ...prev,
+                          illnessDuration: undefined,
+                        })
+                      : (prev) => ({
+                          ...prev,
+                          illnessDuration: e.target.value,
+                        })
+                  )
                 }
                 onBlur={(e) =>
                   setFormData((prev) => ({
@@ -704,7 +756,17 @@ const PatientInputFormComponent = () => {
                 placeholder="Type out the hospital of treatment here..."
                 value={formData.hospital ?? ""}
                 onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, hospital: e.target.value }))
+                  setFormData(
+                    e.target.value === ""
+                      ? (prev) => ({
+                          ...prev,
+                          hospital: undefined,
+                        })
+                      : (prev) => ({
+                          ...prev,
+                          hospital: e.target.value,
+                        })
+                  )
                 }
                 onBlur={(e) =>
                   setFormData((prev) => ({
@@ -726,10 +788,17 @@ const PatientInputFormComponent = () => {
                 placeholder="Type out the doctor's name here..."
                 value={formData.doctorName ?? ""}
                 onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    doctorName: e.target.value,
-                  }))
+                  setFormData(
+                    e.target.value === ""
+                      ? (prev) => ({
+                          ...prev,
+                          doctorName: undefined,
+                        })
+                      : (prev) => ({
+                          ...prev,
+                          doctorName: e.target.value,
+                        })
+                  )
                 }
                 onBlur={(e) =>
                   setFormData((prev) => ({
@@ -751,7 +820,17 @@ const PatientInputFormComponent = () => {
                 placeholder="Type out the doctor's address here..."
                 value={formData.address ?? ""}
                 onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, address: e.target.value }))
+                  setFormData(
+                    e.target.value === ""
+                      ? (prev) => ({
+                          ...prev,
+                          address: undefined,
+                        })
+                      : (prev) => ({
+                          ...prev,
+                          address: e.target.value,
+                        })
+                  )
                 }
                 onBlur={(e) =>
                   setFormData((prev) => ({
@@ -773,7 +852,7 @@ const PatientInputFormComponent = () => {
         }`}
         disabled={isLoading ? true : false}
       >
-        {isLoading ? "Submitting" : "Submit your data"}
+        {isLoading ? "Submitting..." : "Submit your data"}
       </button>
     </form>
   );

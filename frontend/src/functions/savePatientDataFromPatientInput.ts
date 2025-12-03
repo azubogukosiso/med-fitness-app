@@ -1,3 +1,6 @@
+// LIBRARY IMPORTS
+import { toast } from "sonner";
+
 // TYPE IMPORTS
 import type { PatientFormDataFromPatientInputType } from "../types/PatientFormDataFromPatientInputType";
 
@@ -7,6 +10,19 @@ export const savePatientDataFromPatientInput = async (
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   e.preventDefault();
+
+  setIsLoading(true);
+
+  const personalDataFields = [
+    formData.surname,
+    formData.faculty,
+    formData.maritalStatus,
+    formData.age,
+    formData.otherNames,
+    formData.department,
+    formData.noOfChildren,
+    formData.sex,
+  ];
 
   const medicalHistoryFields = [
     formData.heatInHeadOrBody,
@@ -21,38 +37,51 @@ export const savePatientDataFromPatientInput = async (
     formData.diabetes,
   ];
 
-  const otherIllnessFields = [
-    formData.otherIllness,
-    formData.dateOfIllness,
-    formData.illnessDuration,
-    formData.hospital,
-    formData.doctorName,
-    formData.address,
-  ];
+  const hasEmptyPersonalDataField = personalDataFields.some(
+    (field) => field === undefined || field === ""
+  );
 
-  const hasMedicalHistory = medicalHistoryFields.some((field) => field !== "");
-  const hasOtherIllness = otherIllnessFields.some((field) => field !== "");
+  const hasMedicalHistory = medicalHistoryFields.some(
+    (field) => field === undefined
+  );
 
-  if (!hasMedicalHistory && !hasOtherIllness) {
-    console.log("You must fill up either section!");
+  if (hasEmptyPersonalDataField) {
+    toast.error("Missing fields!", {
+      description: "You must fill up the 'Personal Data' section",
+    });
+    return;
+  }
+
+  if (hasMedicalHistory) {
+    toast.error("Missing fields!", {
+      description:
+        "You must fill up the first part of the 'Previous Health' section",
+    });
     return;
   }
 
   try {
-    const res = await fetch("http://localhost:3000/api/patient/record", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ formData }),
-    });
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/patient/record`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ formData }),
+      }
+    );
 
     const data = await res.json();
 
     if (res.ok) {
-      console.log("Here we are: ", data.message);
+      toast.success(data.message);
     }
   } catch (err) {
-    console.log("Error creating record: ", err);
+    console.log("Error: ", err);
+    toast.error("An error occured!", {
+      description:
+        "Please make sure you're connected to the internet and then try submitting your records again.",
+    });
   } finally {
     setIsLoading(false);
   }

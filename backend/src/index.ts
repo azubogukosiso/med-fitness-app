@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL,
     credentials: true,
   })
 );
@@ -29,7 +29,7 @@ app.use("/api/patient", patientRoutes);
 
 // MONGODB CONNECTION
 mongoose
-  .connect("mongodb://localhost:27017/school-auth")
+  .connect(process.env.MONGODB_URL as string)
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`);

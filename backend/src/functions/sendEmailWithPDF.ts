@@ -19,8 +19,8 @@ export const sendEmailWithPDF = async (
       port: 587,
       secure: false,
       auth: {
-        user: "azuboguko@gmail.com",
-        pass: "fwbt garb lviw gqxg",
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
       },
     });
 

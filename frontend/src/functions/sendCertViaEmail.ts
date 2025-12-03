@@ -1,3 +1,6 @@
+// LIBRARY IMPORTS
+import { toast } from "sonner";
+
 export const sendCertViaEmail = async (
   email: string,
   patientName: string,
@@ -6,7 +9,7 @@ export const sendCertViaEmail = async (
   setIsLoading(true);
 
   try {
-    const res = await fetch("http://localhost:3000/api/patient/send-email", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/patient/send-email`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -16,10 +19,14 @@ export const sendCertViaEmail = async (
     const data = await res.json();
 
     if (res.ok) {
-      console.log(data.message);
+      toast.success(data.message);
     }
   } catch (err) {
-    console.log("Error sending email: ", err);
+    console.log("Error: ", err);
+    toast.error("An error occured!", {
+      description:
+        "Please make sure you're connected to the internet and then try sending the email again.",
+    });
   } finally {
     setIsLoading(false);
   }

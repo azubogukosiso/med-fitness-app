@@ -1,5 +1,5 @@
 // LIBRARY IMPORTS
-import React from "react";
+import { toast } from "sonner";
 
 // TYPE IMPORTS
 import type { PatientFormDataFromDoctorInputType } from "../types/PatientFormDataFromDoctorInputType";
@@ -34,7 +34,7 @@ export const savePatientDataFromDoctorInput = async (
 
   try {
     const res = await fetch(
-      `http://localhost:3000/api/patient/report?id=${recordId}`,
+      `${import.meta.env.VITE_API_URL}/api/patient/report?id=${recordId}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -46,12 +46,14 @@ export const savePatientDataFromDoctorInput = async (
     const data = await res.json();
 
     if (res.ok) {
-      console.log(data.message);
-      return { success: true, message: data.message };
+      toast.success(data.message);
     }
   } catch (err) {
-    console.log("Error saving data: ", err);
-    return { success: false, message: err };
+    console.log("Error: ", err);
+    toast.error("An error occured!", {
+      description:
+        "Please make sure you're connected to the internet and then try submitting your records again.",
+    });
   } finally {
     setIsLoading(false);
   }
