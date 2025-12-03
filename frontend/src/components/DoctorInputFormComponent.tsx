@@ -18,71 +18,98 @@ import RespiratorySystemComponent from "./DoctorInputFormComponentSections/Respi
 import GastrointestinalTractSystemComponent from "./DoctorInputFormComponentSections/GastrointestinalTractSystemComponent";
 import GentoUrinarySystemComponent from "./DoctorInputFormComponentSections/GentoUrinarySystemComponent";
 
-import { savePatientDataFromDoctorInput } from "../functions/savePatientDataFromDoctorInputUtils/savePatientDataFromDoctorInput";
+import { savePatientDataFromDoctorInput } from "../functions/savePatientDataFromDoctorInput";
 
 type DoctorInputFormComponentProps = {
   recordId: string;
+  doctorReport?: {
+    relevantExaminationFormData: RelevantExaminationFormDataType;
+    cardiovascularSystemsFormData: CardiovascularSystemsFormDataType;
+    centralNervousSystemFormData: CentralNervousSystemFormDataType;
+    respiratorySystemFormData: RespiratorySystemFormDataType;
+    gastrointestinalTractSystemFormData: GastrointestinalTractSystemFormDataType;
+    gentoUrinarySystemFormData: GentoUrinarySystemFormDataType;
+    commentsFormData: CommentsFormDataType;
+  };
 };
 
 const DoctorInputFormComponent = ({
   recordId,
+  doctorReport,
 }: DoctorInputFormComponentProps) => {
   const [relevantExaminationFormData, setRelevantExaminationFormData] =
     useState<RelevantExaminationFormDataType>({
-      height: undefined,
-      genotype: undefined,
-      weight: undefined,
-      bloodGroup: undefined,
+      height: doctorReport?.relevantExaminationFormData.height ?? undefined,
+      genotype: doctorReport?.relevantExaminationFormData.genotype ?? undefined,
+      weight: doctorReport?.relevantExaminationFormData.weight ?? undefined,
+      bloodGroup:
+        doctorReport?.relevantExaminationFormData.bloodGroup ?? undefined,
     });
 
   const [cardiovascularSystemsFormData, setCardiovascularSystemsFormData] =
     useState<CardiovascularSystemsFormDataType>({
-      xRay: undefined,
-      bp: undefined,
-      cardiacSound: undefined,
-      pulseRate: undefined,
+      xRay: doctorReport?.cardiovascularSystemsFormData.xRay ?? undefined,
+      bp: doctorReport?.cardiovascularSystemsFormData.bp ?? undefined,
+      cardiacSound:
+        doctorReport?.cardiovascularSystemsFormData.cardiacSound ?? undefined,
+      pulseRate:
+        doctorReport?.cardiovascularSystemsFormData.pulseRate ?? undefined,
     });
 
   const [centralNervousSystemFormData, setCentralNervousSystemFormData] =
     useState<CentralNervousSystemFormDataType>({
-      mmr: undefined,
-      ctScan: undefined,
-      wellBeing: undefined,
+      mmr: doctorReport?.centralNervousSystemFormData.mmr ?? undefined,
+      ctScan: doctorReport?.centralNervousSystemFormData.ctScan ?? undefined,
+      wellBeing:
+        doctorReport?.centralNervousSystemFormData.wellBeing ?? undefined,
     });
 
   const [respiratorySystemFormData, setRespiratorySystemFormData] =
     useState<RespiratorySystemFormDataType>({
-      spo2: undefined,
-      respiratoryRate: undefined,
-      precautionNote: undefined,
-      charOfBreath: undefined,
+      spo2: doctorReport?.respiratorySystemFormData.spo2 ?? undefined,
+      respiratoryRate:
+        doctorReport?.respiratorySystemFormData.respiratoryRate ?? undefined,
+      precautionNote:
+        doctorReport?.respiratorySystemFormData.precautionNote ?? undefined,
+      charOfBreath:
+        doctorReport?.respiratorySystemFormData.charOfBreath ?? undefined,
     });
 
   const [
     gastrointestinalTractSystemFormData,
     setGastrointestinalTractSystemFormData,
   ] = useState<GastrointestinalTractSystemFormDataType>({
-    abdominalTenderness: undefined,
-    liver: undefined,
-    anyOtherMasses: undefined,
-    abdominalMass: undefined,
+    abdominalTenderness:
+      doctorReport?.gastrointestinalTractSystemFormData.abdominalTenderness ??
+      undefined,
+    liver: doctorReport?.gastrointestinalTractSystemFormData.liver ?? undefined,
+    anyOtherMasses:
+      doctorReport?.gastrointestinalTractSystemFormData.anyOtherMasses ??
+      undefined,
+    abdominalMass:
+      doctorReport?.gastrointestinalTractSystemFormData.abdominalMass ??
+      undefined,
   });
 
   const [gentoUrinarySystemFormData, setGentoUrinarySystemFormData] =
     useState<GentoUrinarySystemFormDataType>({
-      urine: undefined,
-      albumen: undefined,
-      sugar: undefined,
-      deposit: undefined,
+      urine: doctorReport?.gentoUrinarySystemFormData.urine ?? undefined,
+      albumen: doctorReport?.gentoUrinarySystemFormData.albumen ?? undefined,
+      sugar: doctorReport?.gentoUrinarySystemFormData.sugar ?? undefined,
+      deposit: doctorReport?.gentoUrinarySystemFormData.deposit ?? undefined,
     });
 
   const [commentsFormData, setCommentsFormData] =
     useState<CommentsFormDataType>({
-      commentsByDoctor: undefined,
-      nameOfDoctor: undefined,
+      commentsByDoctor:
+        doctorReport?.commentsFormData.commentsByDoctor ?? undefined,
+      nameOfDoctor: doctorReport?.commentsFormData.nameOfDoctor ?? undefined,
       // signatureOfDoctor: undefined,
-      commentsByDirector: undefined,
+      commentsByDirector:
+        doctorReport?.commentsFormData.commentsByDirector ?? undefined,
     });
+
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <form
@@ -99,7 +126,8 @@ const DoctorInputFormComponent = ({
             gentoUrinarySystemFormData,
             commentsFormData,
           },
-          recordId
+          recordId,
+          setIsLoading
         )
       }
     >
@@ -175,7 +203,7 @@ const DoctorInputFormComponent = ({
         </div>
 
         <div className="flex flex-col mb-7">
-          <label htmlFor="signatureOfDoctor">
+          <label htmlFor="commentsByDirector">
             Comments by the Director of Medical Services:
           </label>
           <input
@@ -196,9 +224,11 @@ const DoctorInputFormComponent = ({
 
       <button
         type="submit"
-        className="rounded-md bg-black text-white p-2 w-full active:scale-95 transition-all mt-5"
+        className={`rounded-md bg-black text-white p-2 w-full active:scale-95 transition-all mt-5 ${
+          isLoading && "opacity-65 cursor-not-allowed"
+        }`}
       >
-        Submit your data
+        {isLoading ? "Saving..." : "Save your data"}
       </button>
     </form>
   );

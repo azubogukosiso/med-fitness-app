@@ -10,9 +10,13 @@ const LoginFormComponent = () => {
   const [schoolEmail, setSchoolEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <form className="w-1/2" onSubmit={(e) => login(e, schoolEmail, password)}>
+    <form
+      className="w-1/2"
+      onSubmit={(e) => login(e, schoolEmail, password, setIsLoading)}
+    >
       <h3>Log In to your account</h3>
 
       <div className="mt-5">
@@ -73,9 +77,12 @@ const LoginFormComponent = () => {
 
         <button
           type="submit"
-          className="rounded-md bg-black text-white p-2 w-full active:scale-95 transition-all"
+          className={`rounded-md bg-black text-white p-2 w-full active:scale-95 transition-all ${
+            isLoading && "opacity-65 cursor-not-allowed"
+          }`}
+          disabled={isLoading ? true : false}
         >
-          Log In
+          {isLoading ? "Logging In..." : "Log In"}
         </button>
       </div>
     </form>

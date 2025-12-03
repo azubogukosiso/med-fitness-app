@@ -51,6 +51,7 @@ const RelevantExaminationComponent = ({
                 name="genotype"
                 id="genotype"
                 className="focus:!outline-none p-2 bg-white border border-t-0 border-l-0 border-r-0 border-b-black w-full max-w-[80%] cursor-pointer"
+                value={relevantExaminationFormData.genotype ?? ""}
                 onChange={(e) =>
                   setRelevantExaminationFormData((prev) => ({
                     ...prev,
@@ -58,7 +59,7 @@ const RelevantExaminationComponent = ({
                   }))
                 }
               >
-                <option value=""></option>
+                <option disabled value=""></option>
                 <option value="AA">AA</option>
                 <option value="AS">AS</option>
                 <option value="SS">SS</option>
@@ -97,6 +98,7 @@ const RelevantExaminationComponent = ({
                 name="bloodGroup"
                 id="bloodGroup"
                 className="focus:!outline-none p-2 bg-white border border-t-0 border-l-0 border-r-0 border-b-black w-full max-w-[80%] cursor-pointer"
+                value={relevantExaminationFormData.bloodGroup ?? ""}
                 onChange={(e) =>
                   setRelevantExaminationFormData((prev) => ({
                     ...prev,
@@ -104,7 +106,7 @@ const RelevantExaminationComponent = ({
                   }))
                 }
               >
-                <option value=""></option>
+                <option disabled value=""></option>
                 <option value="A+">A+</option>
                 <option value="A-">A-</option>
                 <option value="B+">B+</option>

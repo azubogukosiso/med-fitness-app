@@ -32,7 +32,6 @@ export const PatientsRecordsContextProvider = ({
       });
       if (res.ok) {
         const data = await res.json();
-        console.log("data is here: ", data);
         setPatientsRecords(data.records);
       }
     } catch (err) {

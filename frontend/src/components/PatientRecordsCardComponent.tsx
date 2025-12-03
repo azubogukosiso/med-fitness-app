@@ -36,12 +36,22 @@ const PatientRecordsCardComponent = ({
         >
           View Full Records
         </Link>
-        <Link
-          to={`/doctor/report?id=${record._id}`}
-          className="inline-block px-4 py-2 bg-black text-white rounded-md active:scale-95 transition-all"
-        >
-          Enter Doctor's Report
-        </Link>
+
+        {record.doctorReport ? (
+          <Link
+            to={`/doctor/edit-report?id=${record._id}`}
+            className="inline-block px-4 py-2 bg-black text-white rounded-md active:scale-95 transition-all"
+          >
+            Edit Doctor's Report
+          </Link>
+        ) : (
+          <Link
+            to={`/doctor/report?id=${record._id}`}
+            className="inline-block px-4 py-2 bg-black text-white rounded-md active:scale-95 transition-all"
+          >
+            Enter Doctor's Report
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import DoctorInputPage from "./pages/DoctorInputPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import PatientsRecordsPage from "./pages/PatientsRecordsPage";
 import FullPatientRecordsPage from "./pages/FullPatientRecordsPage";
+import EditDoctorReportPage from "./pages/EditDoctorReportPage";
 
 function App() {
   return (
@@ -46,6 +47,14 @@ function App() {
           element={
             <ProtectedRouteComponent requiredRole="doctor">
               <DoctorInputPage />
+            </ProtectedRouteComponent>
+          }
+        ></Route>
+        <Route
+          path="/doctor/edit-report"
+          element={
+            <ProtectedRouteComponent requiredRole="doctor">
+              <EditDoctorReportPage />
             </ProtectedRouteComponent>
           }
         ></Route>

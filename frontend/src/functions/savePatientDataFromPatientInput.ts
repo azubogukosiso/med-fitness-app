@@ -1,12 +1,10 @@
-// FUNCTION OR COMPONENT IMPORTS
-import { savePatientDataRequest } from "./savePatientDataRequest";
-
 // TYPE IMPORTS
-import type { PatientFormDataFromPatientInputType } from "../../types/PatientFormDataFromPatientInputType";
+import type { PatientFormDataFromPatientInputType } from "../types/PatientFormDataFromPatientInputType";
 
 export const savePatientDataFromPatientInput = async (
   e: React.FormEvent<HTMLFormElement>,
-  formData: PatientFormDataFromPatientInputType
+  formData: PatientFormDataFromPatientInputType,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   e.preventDefault();
 
@@ -40,5 +38,22 @@ export const savePatientDataFromPatientInput = async (
     return;
   }
 
-  await savePatientDataRequest(formData);
+  try {
+    const res = await fetch("http://localhost:3000/api/patient/record", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ formData }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      console.log("Here we are: ", data.message);
+    }
+  } catch (err) {
+    console.log("Error creating record: ", err);
+  } finally {
+    setIsLoading(false);
+  }
 };

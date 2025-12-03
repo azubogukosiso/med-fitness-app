@@ -39,24 +39,35 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const login = async (
     e: React.FormEvent<HTMLFormElement>,
     schoolEmail: string,
-    password: string
+    password: string,
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:3000/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ schoolEmail, password }),
-    });
+    setIsLoading(true);
 
-    const data = await res.json();
-    console.log(data);
-    if (res.ok) {
-      setUser(data.user);
-      return { success: true };
+    try {
+      const res = await fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ schoolEmail, password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setUser(data.user);
+        return { success: true, message: data.message };
+      }
+
+      return { success: false };
+    } catch (err) {
+      console.log("Error logging in: ", err);
+      return { success: false };
+    } finally {
+      setIsLoading(false);
     }
-    return { success: false, message: data.message };
   };
 
   const logout = async () => {

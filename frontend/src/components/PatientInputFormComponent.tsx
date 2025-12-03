@@ -5,12 +5,13 @@ import { useState } from "react";
 import type { PatientFormDataFromPatientInputType } from "../types/PatientFormDataFromPatientInputType";
 
 // FUNCTION IMPORTS
-import { savePatientDataFromPatientInput } from "../functions/savePatientDataFromPatientInputUtils/savePatientDataFromPatientInput";
+import { savePatientDataFromPatientInput } from "../functions/savePatientDataFromPatientInput";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const PatientInputFormComponent = () => {
   const { user } = useAuthContext();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<PatientFormDataFromPatientInputType>(
     {
       patientEmail: user?.schoolEmail as string,
@@ -44,7 +45,9 @@ const PatientInputFormComponent = () => {
   return (
     <form
       className="mt-10"
-      onSubmit={(e) => savePatientDataFromPatientInput(e, formData)}
+      onSubmit={(e) =>
+        savePatientDataFromPatientInput(e, formData, setIsLoading)
+      }
     >
       <div className="p-5">
         <h3>Personal Data</h3>
@@ -765,9 +768,12 @@ const PatientInputFormComponent = () => {
 
       <button
         type="submit"
-        className="rounded-md bg-black text-white p-2 w-full active:scale-95 transition-all mt-5"
+        className={`rounded-md bg-black text-white p-2 w-full active:scale-95 transition-all mt-5 ${
+          isLoading && "opacity-65 cursor-not-allowed"
+        }`}
+        disabled={isLoading ? true : false}
       >
-        Submit your data
+        {isLoading ? "Submitting" : "Submit your data"}
       </button>
     </form>
   );
