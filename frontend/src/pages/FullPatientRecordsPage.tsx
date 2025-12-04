@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 
 // FUNCTION OR COMPONENT IMPORTS
 import FullPatientRecordsComponent from "../components/FullPatientRecordsComponent";
+import PageHeaderComponent from "../components/PageHeaderComponent";
 
 import { usePatientsRecordsContext } from "./../hooks/usePatientsRecordsContext";
 
@@ -18,19 +19,10 @@ const FullPatientRecordsPage = () => {
 
   return (
     <>
-      <header className="flex justify-between">
-        <div className="w-[40%]">
-          <h2>ENUGU STATE UNIVERSITY OF SCIENCE AND TECHNOLOGY</h2>
-          <p>MEDICAL CENTRE ASSESSMENT SYSTEM</p>
-        </div>
-
-        <div className="flex flex-col w-[20%] justify-end items-end">
-          <h3>Full Patient Records</h3>
-          <p className="text-right">
-            Full patient record details for review by medical center personnel
-          </p>
-        </div>
-      </header>
+      <PageHeaderComponent
+        heading="Full Patient Records"
+        subheading="To be filled by the medical center doctor"
+      />
 
       <FullPatientRecordsComponent patientRecords={patientRecords} />
     </>

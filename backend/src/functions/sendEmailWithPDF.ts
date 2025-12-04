@@ -42,13 +42,10 @@ export const sendEmailWithPDF = async (
       ],
     });
 
-    console.log("Info here: ", info);
-
     if (info) {
       return "Email sent successfully!";
     }
   } catch (error) {
-    console.error("Error sending email:", error);
     throw error;
   }
 };

@@ -22,9 +22,12 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
   const checkAuth = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/auth/verify", {
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/verify`,
+        {
+          credentials: "include",
+        }
+      );
       if (res.ok) {
         const data = await res.json();
         setUser(data.user);
@@ -47,12 +50,15 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     setIsLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3000/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ schoolEmail, password }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ schoolEmail, password }),
+        }
+      );
 
       const data = await res.json();
 
@@ -71,7 +77,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   };
 
   const logout = async () => {
-    await fetch("http://localhost:3000/api/auth/logout", {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {
       method: "POST",
       credentials: "include",
     });

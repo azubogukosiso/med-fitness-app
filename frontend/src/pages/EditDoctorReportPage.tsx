@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 
 // FUNCTION OR COMPONENT IMPORTS
 import DoctorInputFormComponent from "../components/DoctorInputFormComponent";
+import PageHeaderComponent from "../components/PageHeaderComponent";
 
 import { usePatientsRecordsContext } from "./../hooks/usePatientsRecordsContext";
 
@@ -18,19 +19,10 @@ const DoctorInputPage = () => {
 
   return (
     <>
-      <header className="flex justify-between">
-        <div className="w-[40%]">
-          <h2>ENUGU STATE UNIVERSITY OF SCIENCE AND TECHNOLOGY</h2>
-          <p>MEDICAL CENTRE ASSESSMENT SYSTEM</p>
-        </div>
-
-        <div className="flex flex-col w-[20%] justify-end items-end">
-          <h3>Edit Patient Data</h3>
-          <p className="text-right">
-            To be filled by the medical center doctor
-          </p>
-        </div>
-      </header>
+      <PageHeaderComponent
+        heading="Edit Patient Data"
+        subheading="To be filled by the medical center doctor"
+      />
 
       <DoctorInputFormComponent
         recordId={recordId as string}
