@@ -1,6 +1,6 @@
 export type CommentsFormDataType = {
   commentsByDoctor: string | undefined;
   nameOfDoctor: string | undefined;
-  signatureOfDoctor: File | undefined;
+  signatureOfDoctor: string | File | undefined;
   commentsByDirector: string | undefined;
 };

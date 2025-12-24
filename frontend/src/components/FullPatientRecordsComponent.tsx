@@ -380,7 +380,25 @@ const FullPatientRecordsComponent = ({
                       ?.commentsByDirector
                   }
                 </p>
-              </div>
+                <p className="mb-1">
+                  <span className="font-medium">Signature of Doctor:</span>{" "}                  
+                  <div className="border border-black w-[15%] h-[80px] mt-3 cursor-pointer rounded-md overflow-hidden">
+                    {patientRecords?.doctorReport?.commentsFormData?.signatureOfDoctor ? (
+                      <img
+                        src={patientRecords?.doctorReport?.commentsFormData?.signatureOfDoctor as string}
+                        alt="Signature Preview"
+                        className="w-full h-auto"
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center p-3">                
+                        <span className="text-sm text-gray-400">
+                          No signature provided
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </p>
+              </div>              
             </div>
           ) : (
             "None"

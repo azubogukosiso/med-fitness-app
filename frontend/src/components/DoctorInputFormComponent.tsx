@@ -114,7 +114,7 @@ const DoctorInputFormComponent = ({
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [imagePreview, setImagePreview] = useState<string | undefined>(
-    undefined
+    doctorReport?.commentsFormData.signatureOfDoctor as string ?? undefined
   );
 
   return (

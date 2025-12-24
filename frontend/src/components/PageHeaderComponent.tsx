@@ -52,8 +52,7 @@ const PageHeaderComponent = ({
                   {user?.schoolEmail}
                 </p>
                 <p className="mt-3">
-                  <span className="font-medium">Account Type:</span> Patient
-                  Account
+                  <span className="font-medium">Account Type:</span> {user?.isDoctor ? "Doctor Account" : "Patient Account"}
                 </p>
 
                 <div className="flex justify-between">
