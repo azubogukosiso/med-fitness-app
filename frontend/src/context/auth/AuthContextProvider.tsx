@@ -13,11 +13,30 @@ type AuthContextProviderProps = {
 };
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<{
+    userName: string;
+    email: string;
+    id: string;
+  } | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    // setUser({
+    //   userName: "John Doe",
+    //   email: "johndoe@gmail.com",
+    //   id: "some_random_id_#123",
+    // });
+    // setLoading(false);
     checkAuth();
+    // const timer = setTimeout(() => {
+    //   setUser({
+    //     userName: "John Doe",
+    //     email: "johndoe@gmail.com",
+    //     id: "some_random_id_#123",
+    //   });
+    //   setLoading(false);
+    // }, 2000);
+    // return () => clearTimeout(timer);
   }, []);
 
   const checkAuth = async () => {
@@ -30,6 +49,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       );
       if (res.ok) {
         const data = await res.json();
+        console.log("User here: ", data.user);
         setUser(data.user);
       }
     } catch (err) {

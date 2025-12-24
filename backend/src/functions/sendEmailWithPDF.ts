@@ -16,8 +16,10 @@ export const sendEmailWithPDF = async (
   try {
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
+      port: 465,
+      secure: true,
+      connectionTimeout: 20000,
+      greetingTimeout: 20000,
       auth: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_PASS,
@@ -43,9 +45,11 @@ export const sendEmailWithPDF = async (
     });
 
     if (info) {
+      console.log("here's our info: ", info);
       return "Email sent successfully!";
     }
   } catch (error) {
+    console.log("here's our error: ", error);
     throw error;
   }
 };

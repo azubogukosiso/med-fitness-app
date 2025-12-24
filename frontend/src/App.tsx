@@ -13,7 +13,11 @@ import PatientsRecordsPage from "./pages/PatientsRecordsPage";
 import FullPatientRecordsPage from "./pages/FullPatientRecordsPage";
 import EditDoctorReportPage from "./pages/EditDoctorReportPage";
 
+import { useAuthContext } from "./hooks/useAuthContext";
+
 function App() {
+  // const { user } = useAuthContext();
+
   return (
     <div className="min-h-screen p-5">
       <Routes>
@@ -25,6 +29,7 @@ function App() {
               <LoginPage />
             </PublicRouteComponent>
           }
+          // element={user ? <Navigate to="/patient" /> : <LoginPage />}
         ></Route>
         <Route
           path="/patient"
@@ -33,6 +38,7 @@ function App() {
               <PatientInputPage />
             </ProtectedRouteComponent>
           }
+          // element={user ? <PatientInputPage /> : <Navigate to="/login" />}
         ></Route>
         <Route
           path="/doctor/records"

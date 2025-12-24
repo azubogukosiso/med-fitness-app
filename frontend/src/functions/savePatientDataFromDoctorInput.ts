@@ -22,24 +22,46 @@ export const savePatientDataFromDoctorInput = async (
 
   setIsLoading(true);
 
-  const formData = {
-    relevantExaminationFormData,
-    cardiovascularSystemsFormData,
-    centralNervousSystemFormData,
-    respiratorySystemFormData,
-    gastrointestinalTractSystemFormData,
-    gentoUrinarySystemFormData,
-    commentsFormData,
-  };
+  const { signatureOfDoctor, ...otherCommentsData } = commentsFormData;
+
+  const formData = new FormData();
+  formData.append(
+    "relevantExaminationFormData",
+    JSON.stringify(relevantExaminationFormData)
+  );
+  formData.append(
+    "cardiovascularSystemsFormData",
+    JSON.stringify(cardiovascularSystemsFormData)
+  );
+  formData.append(
+    "centralNervousSystemFormData",
+    JSON.stringify(centralNervousSystemFormData)
+  );
+  formData.append(
+    "respiratorySystemFormData",
+    JSON.stringify(respiratorySystemFormData)
+  );
+  formData.append(
+    "gastrointestinalTractSystemFormData",
+    JSON.stringify(gastrointestinalTractSystemFormData)
+  );
+  formData.append(
+    "gentoUrinarySystemFormData",
+    JSON.stringify(gentoUrinarySystemFormData)
+  );
+  formData.append("commentsFormData", JSON.stringify(otherCommentsData));
+
+  if (signatureOfDoctor) {
+    formData.append("signatureOfDoctor", signatureOfDoctor);
+  }
 
   try {
     const res = await fetch(
       `${import.meta.env.VITE_API_URL}/api/patient/report?id=${recordId}`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ formData }),
+        body: formData,
       }
     );
 
@@ -47,6 +69,10 @@ export const savePatientDataFromDoctorInput = async (
 
     if (res.ok) {
       toast.success(data.message);
+    } else {
+      toast.error("An error occured!", {
+        description: "An error occured on the server. Please try again later.",
+      });
     }
   } catch (err) {
     console.log("Error: ", err);

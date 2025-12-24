@@ -1,4 +1,5 @@
 export type AuthContextType = {
+  // user: { userName: string; email: string; id: string } | null;
   user: { token: string; schoolEmail: string; isDoctor: boolean } | null;
   login: (
     e: React.FormEvent<HTMLFormElement>,
