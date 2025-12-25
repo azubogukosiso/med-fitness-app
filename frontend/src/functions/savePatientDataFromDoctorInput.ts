@@ -75,7 +75,6 @@ export const savePatientDataFromDoctorInput = async (
       });
     }
   } catch (err) {
-    console.log("Error: ", err);
     toast.error("An error occured!", {
       description:
         "Please make sure you're connected to the internet and then try submitting your records again.",

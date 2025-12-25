@@ -20,7 +20,7 @@ import GentoUrinarySystemComponent from "./DoctorInputFormComponentSections/Gent
 
 import { savePatientDataFromDoctorInput } from "../functions/savePatientDataFromDoctorInput";
 
-type DoctorInputFormComponentProps = {
+type DoctorInputRecordsFormComponentProps = {
   recordId: string;
   doctorReport?: {
     relevantExaminationFormData: RelevantExaminationFormDataType;
@@ -33,94 +33,77 @@ type DoctorInputFormComponentProps = {
   };
 };
 
-const DoctorInputFormComponent = ({
+const DoctorInputRecordsFormComponent = ({
   recordId,
-  doctorReport,
-}: DoctorInputFormComponentProps) => {
+}: DoctorInputRecordsFormComponentProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [relevantExaminationFormData, setRelevantExaminationFormData] =
     useState<RelevantExaminationFormDataType>({
-      height: doctorReport?.relevantExaminationFormData.height ?? undefined,
-      genotype: doctorReport?.relevantExaminationFormData.genotype ?? undefined,
-      weight: doctorReport?.relevantExaminationFormData.weight ?? undefined,
-      bloodGroup:
-        doctorReport?.relevantExaminationFormData.bloodGroup ?? undefined,
+      height: undefined,
+      genotype: undefined,
+      weight: undefined,
+      bloodGroup: undefined,
     });
 
   const [cardiovascularSystemsFormData, setCardiovascularSystemsFormData] =
     useState<CardiovascularSystemsFormDataType>({
-      xRay: doctorReport?.cardiovascularSystemsFormData.xRay ?? undefined,
-      bp: doctorReport?.cardiovascularSystemsFormData.bp ?? undefined,
-      cardiacSound:
-        doctorReport?.cardiovascularSystemsFormData.cardiacSound ?? undefined,
-      pulseRate:
-        doctorReport?.cardiovascularSystemsFormData.pulseRate ?? undefined,
+      xRay: undefined,
+      bp: undefined,
+      cardiacSound: undefined,
+      pulseRate: undefined,
     });
 
   const [centralNervousSystemFormData, setCentralNervousSystemFormData] =
     useState<CentralNervousSystemFormDataType>({
-      mmr: doctorReport?.centralNervousSystemFormData.mmr ?? undefined,
-      ctScan: doctorReport?.centralNervousSystemFormData.ctScan ?? undefined,
-      wellBeing:
-        doctorReport?.centralNervousSystemFormData.wellBeing ?? undefined,
+      mmr: undefined,
+      ctScan: undefined,
+      wellBeing: undefined,
     });
 
   const [respiratorySystemFormData, setRespiratorySystemFormData] =
     useState<RespiratorySystemFormDataType>({
-      spo2: doctorReport?.respiratorySystemFormData.spo2 ?? undefined,
-      respiratoryRate:
-        doctorReport?.respiratorySystemFormData.respiratoryRate ?? undefined,
-      precautionNote:
-        doctorReport?.respiratorySystemFormData.precautionNote ?? undefined,
-      charOfBreath:
-        doctorReport?.respiratorySystemFormData.charOfBreath ?? undefined,
+      spo2: undefined,
+      respiratoryRate: undefined,
+      precautionNote: undefined,
+      charOfBreath: undefined,
     });
 
   const [
     gastrointestinalTractSystemFormData,
     setGastrointestinalTractSystemFormData,
   ] = useState<GastrointestinalTractSystemFormDataType>({
-    abdominalTenderness:
-      doctorReport?.gastrointestinalTractSystemFormData.abdominalTenderness ??
-      undefined,
-    liver: doctorReport?.gastrointestinalTractSystemFormData.liver ?? undefined,
-    anyOtherMasses:
-      doctorReport?.gastrointestinalTractSystemFormData.anyOtherMasses ??
-      undefined,
-    abdominalMass:
-      doctorReport?.gastrointestinalTractSystemFormData.abdominalMass ??
-      undefined,
+    abdominalTenderness: undefined,
+    liver: undefined,
+    anyOtherMasses: undefined,
+    abdominalMass: undefined,
   });
 
   const [gentoUrinarySystemFormData, setGentoUrinarySystemFormData] =
     useState<GentoUrinarySystemFormDataType>({
-      urine: doctorReport?.gentoUrinarySystemFormData.urine ?? undefined,
-      albumen: doctorReport?.gentoUrinarySystemFormData.albumen ?? undefined,
-      sugar: doctorReport?.gentoUrinarySystemFormData.sugar ?? undefined,
-      deposit: doctorReport?.gentoUrinarySystemFormData.deposit ?? undefined,
+      urine: undefined,
+      albumen: undefined,
+      sugar: undefined,
+      deposit: undefined,
     });
 
   const [commentsFormData, setCommentsFormData] =
     useState<CommentsFormDataType>({
-      commentsByDoctor:
-        doctorReport?.commentsFormData.commentsByDoctor ?? undefined,
-      nameOfDoctor: doctorReport?.commentsFormData.nameOfDoctor ?? undefined,
-      signatureOfDoctor:
-        doctorReport?.commentsFormData.signatureOfDoctor ?? undefined,
-      commentsByDirector:
-        doctorReport?.commentsFormData.commentsByDirector ?? undefined,
+      commentsByDoctor: undefined,
+      nameOfDoctor: undefined,
+      signatureOfDoctor: undefined,
+      commentsByDirector: undefined,
     });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [imagePreview, setImagePreview] = useState<string | undefined>(
-    doctorReport?.commentsFormData.signatureOfDoctor as string ?? undefined
+    undefined
   );
 
   return (
     <form
       className="mt-10"
-      onSubmit={(e) =>
+      onSubmit={(e) => {
         savePatientDataFromDoctorInput(
           e,
           {
@@ -134,8 +117,8 @@ const DoctorInputFormComponent = ({
           },
           recordId,
           setIsLoading
-        )
-      }
+        );
+      }}
     >
       <RelevantExaminationComponent
         relevantExaminationFormData={relevantExaminationFormData}
@@ -288,4 +271,4 @@ const DoctorInputFormComponent = ({
   );
 };
 
-export default DoctorInputFormComponent;
+export default DoctorInputRecordsFormComponent;

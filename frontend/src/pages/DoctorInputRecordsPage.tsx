@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 // FUNCTION OR COMPONENT IMPORTS
 import PageHeaderComponent from "../components/PageHeaderComponent";
-import DoctorInputFormComponent from "../components/DoctorInputFormComponent";
+import DoctorInputRecordsFormComponent from "../components/DoctorInputRecordsFormComponent";
 
 const DoctorInputPage = () => {
   const location = useLocation();
@@ -19,7 +19,7 @@ const DoctorInputPage = () => {
         subheading="To be filled by the medical center doctor"
       />
 
-      <DoctorInputFormComponent recordId={recordId as string} />
+      <DoctorInputRecordsFormComponent recordId={recordId as string} />
     </>
   );
 };

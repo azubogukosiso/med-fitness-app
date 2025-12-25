@@ -7,13 +7,13 @@ import PublicRouteComponent from "./components/PublicRouteComponent";
 
 import LoginPage from "./pages/LoginPage";
 import PatientInputPage from "./pages/PatientInputPage";
-import DoctorInputPage from "./pages/DoctorInputPage";
+import DoctorInputRecordsPage from "./pages/DoctorInputRecordsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import PatientsRecordsPage from "./pages/PatientsRecordsPage";
 import FullPatientRecordsPage from "./pages/FullPatientRecordsPage";
 import EditDoctorReportPage from "./pages/EditDoctorReportPage";
 
-import { useAuthContext } from "./hooks/useAuthContext";
+// import { useAuthContext } from "./hooks/useAuthContext";
 
 function App() {
   // const { user } = useAuthContext();
@@ -52,7 +52,7 @@ function App() {
           path="/doctor/report"
           element={
             <ProtectedRouteComponent requiredRole="doctor">
-              <DoctorInputPage />
+              <DoctorInputRecordsPage />
             </ProtectedRouteComponent>
           }
         ></Route>

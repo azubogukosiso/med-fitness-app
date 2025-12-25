@@ -2,7 +2,7 @@
 import { useLocation } from "react-router-dom";
 
 // FUNCTION OR COMPONENT IMPORTS
-import DoctorInputFormComponent from "../components/DoctorInputFormComponent";
+import EditDoctorReportComponent from "../components/EditDoctorReportComponent";
 import PageHeaderComponent from "../components/PageHeaderComponent";
 
 import { usePatientsRecordsContext } from "./../hooks/usePatientsRecordsContext";
@@ -24,7 +24,7 @@ const DoctorInputPage = () => {
         subheading="To be filled by the medical center doctor"
       />
 
-      <DoctorInputFormComponent
+      <EditDoctorReportComponent
         recordId={recordId as string}
         doctorReport={patientRecords?.doctorReport}
       />
