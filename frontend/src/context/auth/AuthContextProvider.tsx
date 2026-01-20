@@ -14,9 +14,9 @@ type AuthContextProviderProps = {
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [user, setUser] = useState<{
-    userName: string;
-    email: string;
-    id: string;
+    token: string;
+    schoolEmail: string;
+    isDoctor: boolean;
   } | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
