@@ -27,7 +27,7 @@ export const PatientsRecordsContextProvider = ({
 
   const fetchPatientsRecords = async () => {
     try {
-      const res = await fetch("${VITE_API_URL}/api/patient/records", {
+      const res = await fetch(`${VITE_API_URL}/api/patient/records`, {
         credentials: "include",
       });
       if (res.ok) {
