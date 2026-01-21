@@ -204,17 +204,12 @@ export const editDoctorReportWithOldSignature = async (
 
 export const issueCertViaEmail = async (req: Request, res: Response) => {
   try {
-    const message = await sendEmailWithPDF(
-      {
-        to: "azuboguko@gmail.com",
-        subject: "Your Document",
-        text: "Please find your document attached.",
-      },
-      req.body.patientName
-    );
+    const message = await sendEmailWithPDF(req.body.patientName);
 
     if (message) {
-      res.status(200).json({ message });
+      res
+        .status(200)
+        .json({ message: "Email sent successfully!", info: message });
     }
   } catch (error) {
     console.log("Here we are again:", error);

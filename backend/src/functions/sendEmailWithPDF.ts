@@ -1,55 +1,46 @@
-import nodemailer from "nodemailer";
+import { TransactionalEmailsApi, SendSmtpEmail } from "@getbrevo/brevo";
 import * as React from "react";
-import { pdf } from "@react-pdf/renderer";
+import { renderToBuffer } from "@react-pdf/renderer";
 import MyDocument from "./MyDocument";
 
-type EmailOptions = {
-  to: string;
-  subject: string;
-  text: string;
-};
-
-export const sendEmailWithPDF = async (
-  emailOptions: EmailOptions,
-  patientName: string
-) => {
+export const sendEmailWithPDF = async (patientName: string) => {
   try {
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      connectionTimeout: 20000,
-      greetingTimeout: 20000,
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
-      },
-    });
+    let emailAPI = new TransactionalEmailsApi();
 
-    const pdfBuffer: any = await pdf(
+    if (!process.env.BREVO_API_KEY) {
+      throw new Error("BREVO_API_KEY is not defined");
+    }
+
+    (emailAPI as any).authentications.apiKey.apiKey = process.env.BREVO_API_KEY;
+
+    const pdfBuffer: any = await renderToBuffer(
       React.createElement(MyDocument, { name: patientName }) as any
-    ).toBuffer();
+    );
 
-    const info = await transporter.sendMail({
-      from: '"Sender Name" azuboguko@gmail.com',
-      to: emailOptions.to,
-      subject: emailOptions.subject,
-      text: emailOptions.text,
-      attachments: [
-        {
-          filename: "Medical Fitness Certificate.pdf",
-          content: pdfBuffer,
-          contentType: "application/pdf",
-        },
-      ],
-    });
+    const base64Pdf = await pdfBuffer.toString("base64");
 
-    if (info) {
-      console.log("here's our info: ", info);
+    let message = new SendSmtpEmail();
+    message.subject = "Your Medical Fitness Certificate";
+    message.textContent =
+      "Please find your medical fitness certificate attached below.";
+    message.sender = {
+      name: "ESUT Medical Center",
+      email: "azuboguko@gmail.com",
+    };
+    message.to = [{ email: "azuboguko@gmail.com", name: "Kosiso Azubogu" }];
+    message.attachment = [
+      {
+        name: "Medical Fitness Certificate.pdf",
+        content: base64Pdf,
+      },
+    ];
+
+    const response = await emailAPI.sendTransacEmail(message);
+
+    if (response) {
       return "Email sent successfully!";
     }
   } catch (error) {
-    console.log("here's our error: ", error);
     throw error;
   }
 };
