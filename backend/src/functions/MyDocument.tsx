@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
 
 type MyDocumentPropType = {
   name: string;
+  signature: string;
 };
 
 const getFormattedDate = () => {
@@ -123,7 +124,7 @@ const getFormattedDate = () => {
   return `${month} ${dayWithSuffix}, ${year}`;
 };
 
-const MyDocument = ({ name }: MyDocumentPropType) => (
+const MyDocument = ({ name, signature }: MyDocumentPropType) => (
   <Document>
     <Page style={styles.page} orientation="landscape" size="A4">
       <View style={styles.heading}>
@@ -174,9 +175,20 @@ const MyDocument = ({ name }: MyDocumentPropType) => (
         <View style={styles.firstFooter}>
           <Text style={styles.signatureLabel}>Signature with Seal:</Text>
           <View style={styles.signature}>
-            <Text>
-              ...............................................................
-            </Text>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <View style={{ width: 100, height: 50 }}>
+                <Image style={styles.img} src={signature}></Image>
+              </View>
+              <View>
+                ...............................................................
+              </View>
+            </View>
             <Text>DR. NJIDEKA KENNETH NJOKU</Text>
             <Text style={styles.directorTitle}>DIRECTOR, MEDICAL SERVICES</Text>
           </View>

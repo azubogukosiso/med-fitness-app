@@ -27,12 +27,14 @@ export const PatientsRecordsContextProvider = ({
 
   const fetchPatientsRecords = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/patient/records`, {
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/patient/records`,
+        {
+          credentials: "include",
+        }
+      );
       if (res.ok) {
         const data = await res.json();
-        console.log("Here we go: ", data.records);
         setPatientsRecords(data.records);
       }
     } catch (err) {

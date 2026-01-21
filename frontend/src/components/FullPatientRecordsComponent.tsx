@@ -438,6 +438,8 @@ const FullPatientRecordsComponent = ({
               sendCertViaEmail(
                 patientRecords?.patientEmail as string,
                 `${patientRecords?.surname} ${patientRecords?.otherNames}`,
+                patientRecords?.doctorReport?.commentsFormData
+                  ?.signatureOfDoctor as string,
                 setIsLoading
               )
             }

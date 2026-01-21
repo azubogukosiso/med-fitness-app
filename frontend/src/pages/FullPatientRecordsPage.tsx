@@ -17,6 +17,8 @@ const FullPatientRecordsPage = () => {
 
   const patientRecords = getPatientRecordsById(recordId as string);
 
+  console.log("Patient Records: ", patientRecords);
+
   return (
     <>
       <PageHeaderComponent

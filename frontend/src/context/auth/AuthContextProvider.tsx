@@ -49,7 +49,6 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       );
       if (res.ok) {
         const data = await res.json();
-        console.log("User here: ", data.user);
         setUser(data.user);
       }
     } catch (err) {

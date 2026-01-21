@@ -204,7 +204,10 @@ export const editDoctorReportWithOldSignature = async (
 
 export const issueCertViaEmail = async (req: Request, res: Response) => {
   try {
-    const message = await sendEmailWithPDF(req.body.patientName);
+    const message = await sendEmailWithPDF(
+      req.body.patientName,
+      req.body.doctorSignature
+    );
 
     if (message) {
       res

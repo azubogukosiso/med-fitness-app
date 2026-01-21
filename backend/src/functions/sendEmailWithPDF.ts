@@ -3,7 +3,10 @@ import * as React from "react";
 import { renderToBuffer } from "@react-pdf/renderer";
 import MyDocument from "./MyDocument";
 
-export const sendEmailWithPDF = async (patientName: string) => {
+export const sendEmailWithPDF = async (
+  patientName: string,
+  doctorSignature: string
+) => {
   try {
     let emailAPI = new TransactionalEmailsApi();
 
@@ -14,7 +17,10 @@ export const sendEmailWithPDF = async (patientName: string) => {
     (emailAPI as any).authentications.apiKey.apiKey = process.env.BREVO_API_KEY;
 
     const pdfBuffer: any = await renderToBuffer(
-      React.createElement(MyDocument, { name: patientName }) as any
+      React.createElement(MyDocument, {
+        name: patientName,
+        signature: doctorSignature,
+      }) as any
     );
 
     const base64Pdf = await pdfBuffer.toString("base64");
@@ -41,6 +47,7 @@ export const sendEmailWithPDF = async (patientName: string) => {
       return "Email sent successfully!";
     }
   } catch (error) {
+    console.log("Error sending email with PDF:", error);
     throw error;
   }
 };
