@@ -65,6 +65,11 @@ export const verify = async (req: Request, res: Response) => {
 };
 
 export const logout = (req: Request, res: Response) => {
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "strict",
+    path: "/",
+  });
   res.json({ message: "Logout successful" });
 };
