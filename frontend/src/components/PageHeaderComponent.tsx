@@ -10,7 +10,7 @@ const PageHeaderComponent = ({
   heading,
   subheading,
 }: PageHeaderComponentProps) => {
-  const { user, logout } = useAuthContext();
+  const { user, logout, loading } = useAuthContext();
 
   return (
     <header className="flex justify-between items-center">
@@ -52,16 +52,17 @@ const PageHeaderComponent = ({
                   {user?.schoolEmail}
                 </p>
                 <p className="mt-3">
-                  <span className="font-medium">Account Type:</span> {user?.isDoctor ? "Doctor Account" : "Patient Account"}
+                  <span className="font-medium">Account Type:</span>{" "}
+                  {user?.isDoctor ? "Doctor Account" : "Patient Account"}
                 </p>
 
                 <div className="flex justify-between">
                   <span className="block"></span>
                   <button
-                    className="rounded-md bg-black text-white px-3 py-2 text-sm shadow-none active:scale-95 transition-all"
+                    className="rounded-md w-1/4 bg-black text-white px-3 py-2 text-sm shadow-none active:scale-95 transition-all"
                     onClick={() => logout()}
                   >
-                    Log Out
+                    {loading ? "Logging you out..." : "Log Out"}
                   </button>
                 </div>
               </div>

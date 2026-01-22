@@ -434,20 +434,55 @@ const FullPatientRecordsComponent = ({
               isLoading && "opacity-65 cursor-not-allowed"
             }`}
             disabled={isLoading ? true : false}
-            onClick={() =>
-              sendCertViaEmail(
-                patientRecords?.patientEmail as string,
-                `${patientRecords?.surname} ${patientRecords?.otherNames}`,
-                patientRecords?.doctorReport?.commentsFormData
-                  ?.signatureOfDoctor as string,
-                setIsLoading
-              )
-            }
+            onClick={() => {
+              patientRecords?.doctorReport
+                ? sendCertViaEmail(
+                    patientRecords?.patientEmail as string,
+                    `${patientRecords?.surname} ${patientRecords?.otherNames}`,
+                    patientRecords?.doctorReport?.commentsFormData
+                      ?.signatureOfDoctor as string,
+                    setIsLoading
+                  )
+                : document
+                    .querySelector<HTMLDialogElement>("#my_modal_1")
+                    ?.showModal();
+            }}
           >
             {isLoading
-              ? "Processing..."
+              ? "Sending Email..."
               : "Issue Fitness Certificate via Email"}
           </button>
+
+          <dialog id="my_modal_1" className="modal">
+            <div className="modal-box bg-white border border-black">
+              <h3 className="font-bold text-lg">Information!</h3>
+              <p className="py-4">
+                This patient does not have a doctor's report entered yet. <br />{" "}
+                Do you still wish to issue the medical fitness certificate?
+              </p>
+              <div className="modal-action justify-center">
+                <form method="dialog" className="flex justify-between w-full">
+                  <button className="rounded-md w-1/4 bg-black text-white px-3 py-2 text-sm shadow-none active:scale-95 transition-all">
+                    No
+                  </button>
+                  <button
+                    className="rounded-md w-1/4 bg-black text-white px-3 py-2 text-sm shadow-none active:scale-95 transition-all"
+                    onClick={() => {
+                      sendCertViaEmail(
+                        patientRecords?.patientEmail as string,
+                        `${patientRecords?.surname} ${patientRecords?.otherNames}`,
+                        patientRecords?.doctorReport?.commentsFormData
+                          ?.signatureOfDoctor as string,
+                        setIsLoading
+                      );
+                    }}
+                  >
+                    Yes
+                  </button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </div>
       </div>
     </>

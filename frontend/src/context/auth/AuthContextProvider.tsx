@@ -96,11 +96,13 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   };
 
   const logout = async () => {
+    setLoading(true);
     await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {
       method: "POST",
       credentials: "include",
     });
     setUser(null);
+    setLoading(false);
   };
 
   const contextValue = {
