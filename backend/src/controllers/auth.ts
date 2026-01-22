@@ -24,12 +24,14 @@ export const login = async (req: Request, res: Response) => {
 
     const user = await User.findOne({ schoolEmail });
     if (!user) {
-      return res.status(400).json({ message: "This user does not exist!" });
+      return res
+        .status(400)
+        .json({ message: "User with this email does not exist!" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Incorrect password" });
+      return res.status(400).json({ message: "Incorrect password!" });
     }
 
     const token = jwt.sign(

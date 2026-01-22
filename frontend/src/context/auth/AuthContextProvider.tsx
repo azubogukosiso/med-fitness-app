@@ -1,5 +1,6 @@
 // LIBRARY IMPORTS
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 // TYPE IMPORTS
 import type { ReactNode } from "react";
@@ -71,6 +72,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         return { success: true, message: data.message };
       }
 
+      toast.error(data.message);
       return { success: false };
     } catch (err) {
       console.log("Error logging in: ", err);
