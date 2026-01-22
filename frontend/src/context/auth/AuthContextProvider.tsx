@@ -21,22 +21,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // setUser({
-    //   userName: "John Doe",
-    //   email: "johndoe@gmail.com",
-    //   id: "some_random_id_#123",
-    // });
-    // setLoading(false);
     checkAuth();
-    // const timer = setTimeout(() => {
-    //   setUser({
-    //     userName: "John Doe",
-    //     email: "johndoe@gmail.com",
-    //     id: "some_random_id_#123",
-    //   });
-    //   setLoading(false);
-    // }, 2000);
-    // return () => clearTimeout(timer);
   }, []);
 
   const checkAuth = async () => {
@@ -96,13 +81,24 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   };
 
   const logout = async () => {
-    setLoading(true);
-    await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {
-      method: "POST",
-      credentials: "include",
-    });
-    setUser(null);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/logout`,
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
+
+      if (res.ok) {
+        setUser(null);
+      }
+    } catch (err) {
+      console.error("Logout failed:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const contextValue = {
