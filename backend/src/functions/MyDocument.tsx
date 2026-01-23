@@ -6,10 +6,11 @@ import {
   StyleSheet,
   Image,
 } from "@react-pdf/renderer";
+import { log } from "console";
 
 const styles = StyleSheet.create({
   page: {
-    padding: 40,
+    padding: 30,
     fontSize: "15px",
   },
   heading: {
@@ -22,6 +23,9 @@ const styles = StyleSheet.create({
   subHeading: {
     fontStyle: "italic",
   },
+  logoImg: {
+    objectFit: "cover",
+  },
   details: {
     marginTop: 20,
     display: "flex",
@@ -29,18 +33,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  phoneNum: {
-    fontWeight: "bold",
-  },
-  website: {
+  timesNewRomanFont: {
     fontFamily: "Times-Roman",
   },
   imgContainer: {
     width: 100,
-    height: 100,
+    height: 110,
   },
-  img: {
+  signImg: {
     objectFit: "cover",
+    zIndex: 10,
+    width: 200,
+    height: 90,
   },
   thirdDetail: {
     fontWeight: "bold",
@@ -65,22 +69,33 @@ const styles = StyleSheet.create({
     fontFamily: "Times-Roman",
   },
   footer: {
-    marginTop: 50,
+    marginTop: 40,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    width: "65%",
+    position: "relative",
   },
   firstFooter: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
+  stampImg: {
+    width: 200,
+    height: 85,
+    transform: "rotate(5deg)",
+    position: "absolute",
+    left: -15,
+    top: 20,
+  },
   signatureLabel: {
     fontFamily: "Times-Roman",
     fontStyle: "italic",
+    marginBottom: 15,
   },
   signature: {
-    marginTop: 40,
+    marginTop: 10,
     fontWeight: "bold",
     display: "flex",
     alignItems: "center",
@@ -138,14 +153,17 @@ const MyDocument = ({ name, signature }: MyDocumentPropType) => (
 
       <View style={styles.details}>
         <View>
-          <Text style={styles.phoneNum}>080371024656</Text>
           <Text>
-            Website: <Text style={styles.website}>www.esutportal.net</Text>
+            Tel: <Text style={styles.timesNewRomanFont}>080371024656</Text>
+          </Text>
+          <Text>
+            Website:{" "}
+            <Text style={styles.timesNewRomanFont}>www.esutportal.net</Text>
           </Text>
         </View>
         <View style={styles.imgContainer}>
           <Image
-            style={styles.img}
+            style={styles.logoImg}
             src="./src/public/images/ESUT_logo.jpg"
           ></Image>
         </View>
@@ -158,16 +176,16 @@ const MyDocument = ({ name, signature }: MyDocumentPropType) => (
       </View>
 
       <View style={styles.ref}>
-        <Text>Our Ref: __________________</Text>
+        <Text>Our Ref: ESUT/MC/025</Text>
       </View>
 
       <View>
         <Text style={styles.certHeading}>MEDICAL CERTIFICATE OF FITNESS</Text>
         <Text style={styles.certBody}>
           A Medical Examination has been conducted on Chief/Prof./Mr./Mrs./Ms.
-          <Text> {name} </Text> and I hereby certify him/her to be in good
-          mental and physical condition, and is free from any physical defect
-          which may interfere with his/her studies/duties/activities.
+          <Text> {name} </Text>and I hereby certify him/her to be in good mental
+          and physical condition, and is free from any physical defect which may
+          interfere with his/her studies/duties/activities.
         </Text>
       </View>
 
@@ -175,26 +193,21 @@ const MyDocument = ({ name, signature }: MyDocumentPropType) => (
         <View style={styles.firstFooter}>
           <Text style={styles.signatureLabel}>Signature with Seal:</Text>
           <View style={styles.signature}>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <View style={{ width: 100, height: 50 }}>
-                <Image style={styles.img} src={signature}></Image>
-              </View>
-              <View>
-                ...............................................................
-              </View>
+            <View>
+              <Image
+                style={styles.signImg}
+                src="./src/public/images/ESUT_Doctor_Sign.png"
+              ></Image>
             </View>
-            <Text>DR. NJIDEKA KENNETH NJOKU</Text>
+            <Text>DR. NJIDEKA KENNETH-NJOKU</Text>
             <Text style={styles.directorTitle}>DIRECTOR, MEDICAL SERVICES</Text>
           </View>
         </View>
 
-        <View></View>
+        <Image
+          style={styles.stampImg}
+          src="./src/public/images/ESUT_Med_Center_Stamp.png"
+        ></Image>
       </View>
     </Page>
   </Document>
