@@ -3,10 +3,7 @@ import * as React from "react";
 import { renderToBuffer } from "@react-pdf/renderer";
 import MyDocument from "./MyDocument";
 
-export const sendEmailWithPDF = async (
-  patientName: string,
-  doctorSignature: string
-) => {
+export const sendEmailWithPDF = async (patientName: string) => {
   try {
     let emailAPI = new TransactionalEmailsApi();
 
@@ -19,7 +16,6 @@ export const sendEmailWithPDF = async (
     const pdfBuffer: any = await renderToBuffer(
       React.createElement(MyDocument, {
         name: patientName,
-        signature: doctorSignature,
       }) as any
     );
 

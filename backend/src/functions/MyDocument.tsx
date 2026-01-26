@@ -110,7 +110,6 @@ const styles = StyleSheet.create({
 
 type MyDocumentPropType = {
   name: string;
-  signature: string;
 };
 
 const getFormattedDate = () => {
@@ -139,7 +138,7 @@ const getFormattedDate = () => {
   return `${month} ${dayWithSuffix}, ${year}`;
 };
 
-const MyDocument = ({ name, signature }: MyDocumentPropType) => (
+const MyDocument = ({ name }: MyDocumentPropType) => (
   <Document>
     <Page style={styles.page} orientation="landscape" size="A4">
       <View style={styles.heading}>

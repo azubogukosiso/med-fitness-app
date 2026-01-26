@@ -1,5 +1,5 @@
 // LIBRARY IMPORTS
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 // TYPE IMPORTS
 import type { RelevantExaminationFormDataType } from "../types/RelevantExaminationFormDataType";
@@ -36,8 +36,6 @@ type DoctorInputRecordsFormComponentProps = {
 const DoctorInputRecordsFormComponent = ({
   recordId,
 }: DoctorInputRecordsFormComponentProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const [relevantExaminationFormData, setRelevantExaminationFormData] =
     useState<RelevantExaminationFormDataType>({
       height: undefined,
@@ -91,14 +89,10 @@ const DoctorInputRecordsFormComponent = ({
     useState<CommentsFormDataType>({
       commentsByDoctor: undefined,
       nameOfDoctor: undefined,
-      signatureOfDoctor: undefined,
       commentsByDirector: undefined,
     });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [imagePreview, setImagePreview] = useState<string | undefined>(
-    undefined
-  );
 
   return (
     <form
@@ -208,54 +202,6 @@ const DoctorInputRecordsFormComponent = ({
             placeholder="Type out director's comments here..."
             className="focus:!outline-none p-2 bg-white border border-t-0 border-l-0 border-r-0 border-b-black w-full"
           />
-        </div>
-
-        <div className="flex flex-col mb-7">
-          <label htmlFor="signatureOfDoctor">Signature of Doctor:</label>
-          <input
-            type="file"
-            id="signatureOfDoctor"
-            accept=".jpg, .jpeg, .png, .webp"
-            className="hidden"
-            ref={inputRef}
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) {
-                setImagePreview(URL.createObjectURL(file));
-                setCommentsFormData((prev) => ({
-                  ...prev,
-                  signatureOfDoctor: file,
-                }));
-              } else {
-                setImagePreview(undefined);
-                setCommentsFormData((prev) => ({
-                  ...prev,
-                  signatureOfDoctor: undefined,
-                }));
-              }
-            }}
-          />
-          <div
-            onClick={() => {
-              inputRef.current?.click();
-            }}
-            className="border border-black w-[15%] h-[80px] mt-3 cursor-pointer rounded-md overflow-hidden"
-          >
-            {imagePreview ? (
-              <img
-                src={imagePreview}
-                alt="Signature Preview"
-                className="w-full h-auto"
-              />
-            ) : (
-              <div className="flex flex-col items-center p-3">
-                <span className="text-2xl">+</span>
-                <span className="text-sm text-gray-400">
-                  Click to upload signature
-                </span>
-              </div>
-            )}
-          </div>
         </div>
       </div>
 

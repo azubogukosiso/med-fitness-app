@@ -4,7 +4,6 @@ import { toast } from "sonner";
 export const sendCertViaEmail = async (
   email: string,
   patientName: string,
-  doctorSignature: string,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   setIsLoading(true);
@@ -16,7 +15,7 @@ export const sendCertViaEmail = async (
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ email, patientName, doctorSignature }),
+        body: JSON.stringify({ email, patientName }),
       }
     );
 

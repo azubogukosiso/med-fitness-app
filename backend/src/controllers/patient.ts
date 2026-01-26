@@ -32,13 +32,6 @@ export const inputDoctorReport = async (req: Request, res: Response) => {
   try {
     const recordId = req.query.id;
 
-    const uploadedFile = req.file;
-
-    const imgURL = await cloudinaryImageUpload(
-      uploadedFile!,
-      "esut_med_fitness_app"
-    );
-
     const relevantExaminationFormData = JSON.parse(
       req.body.relevantExaminationFormData
     );
@@ -58,8 +51,6 @@ export const inputDoctorReport = async (req: Request, res: Response) => {
       req.body.gentoUrinarySystemFormData
     );
     const commentsFormData = JSON.parse(req.body.commentsFormData);
-
-    commentsFormData.signatureOfDoctor = imgURL;
 
     const formData = {
       relevantExaminationFormData,
@@ -204,10 +195,7 @@ export const editDoctorReportWithOldSignature = async (
 
 export const issueCertViaEmail = async (req: Request, res: Response) => {
   try {
-    const message = await sendEmailWithPDF(
-      req.body.patientName,
-      req.body.doctorSignature
-    );
+    const message = await sendEmailWithPDF(req.body.patientName);
 
     if (message) {
       res

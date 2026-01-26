@@ -22,8 +22,6 @@ export const savePatientDataFromDoctorInput = async (
 
   setIsLoading(true);
 
-  const { signatureOfDoctor, ...otherCommentsData } = commentsFormData;
-
   const formData = new FormData();
   formData.append(
     "relevantExaminationFormData",
@@ -49,11 +47,7 @@ export const savePatientDataFromDoctorInput = async (
     "gentoUrinarySystemFormData",
     JSON.stringify(gentoUrinarySystemFormData)
   );
-  formData.append("commentsFormData", JSON.stringify(otherCommentsData));
-
-  if (signatureOfDoctor) {
-    formData.append("signatureOfDoctor", signatureOfDoctor);
-  }
+  formData.append("commentsFormData", JSON.stringify(commentsFormData));
 
   try {
     const res = await fetch(
