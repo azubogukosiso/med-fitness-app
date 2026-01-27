@@ -50,7 +50,10 @@ const styles = StyleSheet.create({
   thirdDetail: {
     fontWeight: "bold",
   },
-  ref: {
+  certDetails: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
     fontWeight: "bold",
     fontStyle: "italic",
     marginTop: 20,
@@ -67,6 +70,9 @@ const styles = StyleSheet.create({
   certBody: {
     lineHeight: 1.5,
     fontStyle: "italic",
+    fontFamily: "Times-Roman",
+  },
+  certificateId: {
     fontFamily: "Times-Roman",
   },
   footer: {
@@ -196,8 +202,9 @@ const MyDocument = ({
           </View>
         </View>
 
-        <View style={styles.ref}>
+        <View style={styles.certDetails}>
           <Text>Our Ref: ESUT/MC/025</Text>
+          <Text>Certificate No: {certificateId}</Text>
         </View>
 
         <View>
