@@ -1,10 +1,20 @@
 // LIBRARY IMPORTS
 import { toast } from "sonner";
 
+type PatientProfile = {
+  patientName: string;
+  age: number;
+  sex: string;
+  faculty: string;
+  department: string;
+  maritalStatus: string;
+  noOfChildren: number;
+};
+
 export const sendCertViaEmail = async (
   email: string,
-  patientName: string,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  patientProfile: PatientProfile,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   setIsLoading(true);
 
@@ -15,8 +25,8 @@ export const sendCertViaEmail = async (
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ email, patientName }),
-      }
+        body: JSON.stringify({ email, patientProfile }),
+      },
     );
 
     const data = await res.json();

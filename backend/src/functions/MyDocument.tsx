@@ -5,8 +5,9 @@ import {
   Document,
   StyleSheet,
   Image,
+  Link,
 } from "@react-pdf/renderer";
-import { log } from "console";
+import QRCode from "qrcode";
 
 const styles = StyleSheet.create({
   page: {
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "65%",
+    width: "100%",
     position: "relative",
   },
   firstFooter: {
@@ -106,10 +107,25 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontFamily: "Times-Roman",
   },
+  verifyContainer: {
+    marginTop: 30,
+    alignItems: "flex-end",
+    fontFamily: "Times-Roman",
+  },
+  verificationLink: {
+    textAlign: "right",
+  },
+  qrImage: {
+    width: 100,
+    height: 100,
+  },
 });
 
 type MyDocumentPropType = {
   name: string;
+  certificateId: string;
+  verificationLink: string;
+  qrCodeDataUrl: string;
 };
 
 const getFormattedDate = () => {
@@ -138,78 +154,95 @@ const getFormattedDate = () => {
   return `${month} ${dayWithSuffix}, ${year}`;
 };
 
-const MyDocument = ({ name }: MyDocumentPropType) => (
-  <Document>
-    <Page style={styles.page} orientation="landscape" size="A4">
-      <View style={styles.heading}>
-        <Text style={styles.mainHeading}>
-          ENUGU STATE UNIVERSITY OF SCIENCE AND TECHNOLOGY
-        </Text>
-        <Text style={styles.subHeading}>
-          Office of the Director, Medical Services
-        </Text>
-      </View>
-
-      <View style={styles.details}>
-        <View>
-          <Text>
-            Tel: <Text style={styles.timesNewRomanFont}>080371024656</Text>
+const MyDocument = ({
+  name,
+  certificateId,
+  verificationLink,
+  qrCodeDataUrl,
+}: MyDocumentPropType) => {
+  return (
+    <Document>
+      <Page style={styles.page} orientation="landscape" size="A4">
+        <View style={styles.heading}>
+          <Text style={styles.mainHeading}>
+            ENUGU STATE UNIVERSITY OF SCIENCE AND TECHNOLOGY
           </Text>
-          <Text>
-            Website:{" "}
-            <Text style={styles.timesNewRomanFont}>www.esutportal.net</Text>
+          <Text style={styles.subHeading}>
+            Office of the Director, Medical Services
           </Text>
         </View>
-        <View style={styles.imgContainer}>
-          <Image
-            style={styles.logoImg}
-            src="./src/public/images/ESUT_logo.jpg"
-          ></Image>
-        </View>
-        <View style={styles.thirdDetail}>
-          <Text>EBEANO CITY</Text>
-          <Text>P.M.B 01660</Text>
-          <Text>ENUGU, NIGERIA</Text>
-          <Text>DATE: {getFormattedDate().toUpperCase()}</Text>
-        </View>
-      </View>
 
-      <View style={styles.ref}>
-        <Text>Our Ref: ESUT/MC/025</Text>
-      </View>
-
-      <View>
-        <Text style={styles.certHeading}>MEDICAL CERTIFICATE OF FITNESS</Text>
-        <Text style={styles.certBody}>
-          A Medical Examination has been conducted on Chief/Prof./Mr./Mrs./Ms.
-          <Text> {name} </Text>and I hereby certify him/her to be in good mental
-          and physical condition, and is free from any physical defect which may
-          interfere with his/her studies/duties/activities.
-        </Text>
-      </View>
-
-      <View style={styles.footer}>
-        <View style={styles.firstFooter}>
-          <Text style={styles.signatureLabel}>Signature with Seal:</Text>
-          <View style={styles.signature}>
-            <View>
-              <Image
-                style={styles.signImg}
-                src="./src/public/images/ESUT_Doctor_Sign.png"
-              ></Image>
-            </View>
-            <Text>DR. NJIDEKA KENNETH-NJOKU</Text>
-            <Text style={styles.directorTitle}>DIRECTOR, MEDICAL SERVICES</Text>
+        <View style={styles.details}>
+          <View>
+            <Text>
+              Tel: <Text style={styles.timesNewRomanFont}>080371024656</Text>
+            </Text>
+            <Text>
+              Website:{" "}
+              <Text style={styles.timesNewRomanFont}>www.esutportal.net</Text>
+            </Text>
+          </View>
+          <View style={styles.imgContainer}>
+            <Image
+              style={styles.logoImg}
+              src="./src/public/images/ESUT_logo.jpg"
+            ></Image>
+          </View>
+          <View style={styles.thirdDetail}>
+            <Text>EBEANO CITY</Text>
+            <Text>P.M.B 01660</Text>
+            <Text>ENUGU, NIGERIA</Text>
+            <Text>DATE: {getFormattedDate().toUpperCase()}</Text>
           </View>
         </View>
 
-        <Image
-          style={styles.stampImg}
-          src="./src/public/images/ESUT_Med_Center_Stamp.png"
-        ></Image>
-      </View>
-    </Page>
-  </Document>
-);
+        <View style={styles.ref}>
+          <Text>Our Ref: ESUT/MC/025</Text>
+        </View>
+
+        <View>
+          <Text style={styles.certHeading}>MEDICAL CERTIFICATE OF FITNESS</Text>
+          <Text style={styles.certBody}>
+            A Medical Examination has been conducted on Chief/Prof./Mr./Mrs./Ms.
+            <Text> {name} </Text>and I hereby certify him/her to be in good
+            mental and physical condition, and is free from any physical defect
+            which may interfere with his/her studies/duties/activities.
+          </Text>
+        </View>
+
+        <View style={styles.footer}>
+          <View style={styles.firstFooter}>
+            <Text style={styles.signatureLabel}>Signature with Seal:</Text>
+            <View style={styles.signature}>
+              <View>
+                <Image
+                  style={styles.signImg}
+                  src="./src/public/images/ESUT_Doctor_Sign.png"
+                ></Image>
+              </View>
+              <Text>DR. NJIDEKA KENNETH-NJOKU</Text>
+              <Text style={styles.directorTitle}>
+                DIRECTOR, MEDICAL SERVICES
+              </Text>
+            </View>
+          </View>
+
+          <Image
+            style={styles.stampImg}
+            src="./src/public/images/ESUT_Med_Center_Stamp.png"
+          ></Image>
+
+          <View style={styles.verifyContainer}>
+            <Image src={qrCodeDataUrl} style={styles.qrImage} />
+            <Link style={styles.verificationLink} src={verificationLink}>
+              You can scan the QR code or{"\n"}click this link to verify the
+              certificate's authenticity
+            </Link>
+          </View>
+        </View>
+      </Page>
+    </Document>
+  );
+};
 
 export default MyDocument;

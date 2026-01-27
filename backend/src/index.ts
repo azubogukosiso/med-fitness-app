@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/auth";
 import patientRoutes from "./routes/patient";
+import certificateRoutes from "./routes/certificate";
 
 // LOAD ENVIRONMENT VARIABLES FROM .ENV FILE
 dotenv.config();
@@ -20,12 +21,13 @@ app.use(
   cors({
     origin: process.env.CLIENT_URL,
     credentials: true,
-  })
+  }),
 );
 
 // ROUTES
 app.use("/api/auth", authRoutes);
 app.use("/api/patient", patientRoutes);
+app.use("/api/certificates", certificateRoutes);
 
 // MONGODB CONNECTION
 mongoose

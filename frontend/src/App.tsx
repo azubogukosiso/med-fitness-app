@@ -12,6 +12,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import PatientsRecordsPage from "./pages/PatientsRecordsPage";
 import FullPatientRecordsPage from "./pages/FullPatientRecordsPage";
 import EditDoctorReportPage from "./pages/EditDoctorReportPage";
+import CertificateVerificationPage from "./pages/CertificateVerificationPage";
 
 // import { useAuthContext } from "./hooks/useAuthContext";
 
@@ -72,6 +73,10 @@ function App() {
             </ProtectedRouteComponent>
           }
         ></Route>
+        <Route
+          path="/verify/:certificateId"
+          element={<CertificateVerificationPage />}
+        />
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
     </div>

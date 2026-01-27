@@ -1,9 +1,18 @@
 import { TransactionalEmailsApi, SendSmtpEmail } from "@getbrevo/brevo";
 import * as React from "react";
 import { renderToBuffer } from "@react-pdf/renderer";
-import MyDocument from "./MyDocument";
+import { PDFDocument } from "pdf-lib";
+import QRCode from "qrcode";
 
-export const sendEmailWithPDF = async (patientName: string) => {
+import MyDocument from "./MyDocument";
+import { PatientProfile } from "../types/PatientProfileType";
+
+export const sendEmailWithPDF = async (
+  patientProfile: PatientProfile,
+  email: string,
+  certificateId: string,
+  certificateHash: string,
+) => {
   try {
     let emailAPI = new TransactionalEmailsApi();
 
@@ -13,13 +22,36 @@ export const sendEmailWithPDF = async (patientName: string) => {
 
     (emailAPI as any).authentications.apiKey.apiKey = process.env.BREVO_API_KEY;
 
-    const pdfBuffer: any = await renderToBuffer(
+    const verificationLink: string = `${process.env.CLIENT_URL}/verify/${certificateId}`;
+
+    const qrCodeDataUrl = await QRCode.toDataURL(verificationLink);
+
+    const initialPdfBuffer: Buffer = await renderToBuffer(
       React.createElement(MyDocument, {
-        name: patientName,
-      }) as any
+        name: patientProfile.patientName,
+        certificateId,
+        verificationLink,
+        qrCodeDataUrl,
+      }) as any,
     );
 
-    const base64Pdf = await pdfBuffer.toString("base64");
+    const pdfUint8Array: Uint8Array = initialPdfBuffer;
+
+    const pdfDoc = await PDFDocument.load(pdfUint8Array);
+
+    pdfDoc.setSubject(
+      JSON.stringify({
+        certificateId,
+        patientProfile,
+        certificateHash,
+      }),
+    );
+
+    const finalPdfUint8Array: Uint8Array = await pdfDoc.save();
+
+    const finalPdfBuffer: Buffer = Buffer.from(finalPdfUint8Array);
+
+    const base64Pdf = finalPdfBuffer.toString("base64");
 
     let message = new SendSmtpEmail();
     message.subject = "Your Medical Fitness Certificate";

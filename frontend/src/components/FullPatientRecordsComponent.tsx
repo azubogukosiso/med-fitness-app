@@ -34,7 +34,7 @@ const FullPatientRecordsComponent = ({
   ];
 
   const medicalHistory = medicalHistoryFields.filter(
-    (field) => field.option === "yes"
+    (field) => field.option === "yes",
   );
 
   return (
@@ -87,8 +87,8 @@ const FullPatientRecordsComponent = ({
             ? medicalHistory.map((_illness, index) =>
                 illnesses.map(
                   (value) =>
-                    value.index === index && <p key={index}>{value.illness}</p>
-                )
+                    value.index === index && <p key={index}>{value.illness}</p>,
+                ),
               )
             : "None"}
         </div>
@@ -414,8 +414,16 @@ const FullPatientRecordsComponent = ({
               patientRecords?.doctorReport
                 ? sendCertViaEmail(
                     patientRecords?.patientEmail as string,
-                    `${patientRecords?.surname} ${patientRecords?.otherNames}`,
-                    setIsLoading
+                    {
+                      patientName: `${patientRecords?.surname} ${patientRecords?.otherNames}`,
+                      age: patientRecords?.age as number,
+                      sex: patientRecords?.sex as string,
+                      faculty: patientRecords?.faculty as string,
+                      department: patientRecords?.department as string,
+                      maritalStatus: patientRecords?.maritalStatus as string,
+                      noOfChildren: patientRecords?.noOfChildren as number,
+                    },
+                    setIsLoading,
                   )
                 : document
                     .querySelector<HTMLDialogElement>("#my_modal_1")
@@ -444,8 +452,17 @@ const FullPatientRecordsComponent = ({
                     onClick={() => {
                       sendCertViaEmail(
                         patientRecords?.patientEmail as string,
-                        `${patientRecords?.surname} ${patientRecords?.otherNames}`,
-                        setIsLoading
+                        {
+                          patientName: `${patientRecords?.surname} ${patientRecords?.otherNames}`,
+                          age: patientRecords?.age as number,
+                          sex: patientRecords?.sex as string,
+                          faculty: patientRecords?.faculty as string,
+                          department: patientRecords?.department as string,
+                          maritalStatus:
+                            patientRecords?.maritalStatus as string,
+                          noOfChildren: patientRecords?.noOfChildren as number,
+                        },
+                        setIsLoading,
                       );
                     }}
                   >
