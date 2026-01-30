@@ -46,7 +46,7 @@ const PatientsRecordsComponent = () => {
         </div>
       )}
 
-      {currentRecords.length > 0 && (
+      {currentRecords.length > 0 && hasNextPage && (
         <div
           ref={navigationRef}
           className="mt-5 flex justify-evenly w-[20%] mx-auto"
