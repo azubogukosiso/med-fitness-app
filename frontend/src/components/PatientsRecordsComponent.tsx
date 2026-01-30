@@ -46,29 +46,31 @@ const PatientsRecordsComponent = () => {
         </div>
       )}
 
-      <div
-        ref={navigationRef}
-        className="mt-5 flex justify-evenly w-[20%] mx-auto"
-      >
-        <button
-          disabled={!hasPrevPage}
-          className={`bg-black text-white p-3 rounded-lg active:scale-95 transition-all ${
-            !hasPrevPage && "opacity-65 cursor-not-allowed"
-          }`}
-          onClick={handlePrevClick}
+      {currentRecords.length > 0 && (
+        <div
+          ref={navigationRef}
+          className="mt-5 flex justify-evenly w-[20%] mx-auto"
         >
-          &lt; Previous
-        </button>
-        <button
-          disabled={!hasNextPage || loading}
-          className={`bg-black text-white p-3 rounded-lg active:scale-95 transition-all ${
-            (!hasNextPage || loading) && "opacity-65 cursor-not-allowed"
-          }`}
-          onClick={handleNextClick}
-        >
-          Next &gt;
-        </button>
-      </div>
+          <button
+            disabled={!hasPrevPage}
+            className={`bg-black text-white p-3 rounded-lg active:scale-95 transition-all ${
+              !hasPrevPage && "opacity-65 cursor-not-allowed"
+            }`}
+            onClick={handlePrevClick}
+          >
+            &lt; Previous
+          </button>
+          <button
+            disabled={!hasNextPage || loading}
+            className={`bg-black text-white p-3 rounded-lg active:scale-95 transition-all ${
+              (!hasNextPage || loading) && "opacity-65 cursor-not-allowed"
+            }`}
+            onClick={handleNextClick}
+          >
+            Next &gt;
+          </button>
+        </div>
+      )}
     </div>
   );
 };
