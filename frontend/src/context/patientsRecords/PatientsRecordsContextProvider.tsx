@@ -31,7 +31,7 @@ export const PatientsRecordsContextProvider = ({
         `${import.meta.env.VITE_API_URL}/api/patient/records`,
         {
           credentials: "include",
-        }
+        },
       );
       if (res.ok) {
         const data = await res.json();
@@ -45,10 +45,11 @@ export const PatientsRecordsContextProvider = ({
   };
 
   const getPatientRecordsById = (
-    id: string
+    id: string,
   ): ExtendedPatientRecords | undefined => {
+    console.log("Here are the records: ", patientsRecords);
     return patientsRecords?.find(
-      (record: ExtendedPatientRecords) => record._id === id
+      (record: ExtendedPatientRecords) => record._id === id,
     );
   };
 
