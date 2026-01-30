@@ -1,14 +1,9 @@
-// LIBRARY IMPORTS
-import { useState, useEffect } from "react";
-
-// TYPE IMPORTS
+import { useState } from "react";
 import type { ReactNode } from "react";
+import type { PatientsRecordsPageData } from "../../types/PatientRecordsPageDataType";
 import type { ExtendedPatientRecords } from "../../types/ExtendedPatientRecordsType";
-
-// FUNCTION IMPORTS
 import { PatientsRecordsContext } from "./PatientsRecordsContext";
 
-// PROP TYPE FOR THE PROVIDER COMPONENT
 type PatientsRecordsContextProviderProps = {
   children: ReactNode;
 };
@@ -16,26 +11,44 @@ type PatientsRecordsContextProviderProps = {
 export const PatientsRecordsContextProvider = ({
   children,
 }: PatientsRecordsContextProviderProps) => {
-  const [patientsRecords, setPatientsRecords] = useState<
-    ExtendedPatientRecords[] | null
-  >(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [pages, setPages] = useState<PatientsRecordsPageData[]>([]);
+  const [cursor, setCursor] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [hasNextPage, setHasNextPage] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(0); // Global currentPage state
 
-  useEffect(() => {
-    fetchPatientsRecords();
-  }, []);
+  const fetchPatientsRecords = async (cursor?: string): Promise<void> => {
+    if (loading) return;
 
-  const fetchPatientsRecords = async () => {
+    const url = cursor
+      ? `${
+          import.meta.env.VITE_API_URL
+        }/api/patient/records?limit=10&cursor=${cursor}`
+      : `${import.meta.env.VITE_API_URL}/api/patient/records?limit=10`;
+
+    setLoading(true);
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/patient/records`,
-        {
-          credentials: "include",
-        },
-      );
+      const res = await fetch(url, { credentials: "include" });
       if (res.ok) {
         const data = await res.json();
-        setPatientsRecords(data.records);
+
+        setPages((prev) => {
+          const isDuplicate = prev.some(
+            (page) => page.cursor === data.nextCursor,
+          );
+          if (isDuplicate) return prev;
+
+          return [
+            ...prev,
+            {
+              records: data.records,
+              cursor: data.nextCursor,
+            },
+          ];
+        });
+
+        setCursor(data.nextCursor);
+        setHasNextPage(data.hasNextPage);
       }
     } catch (err) {
       console.error("Failed to fetch patients records:", err);
@@ -47,16 +60,20 @@ export const PatientsRecordsContextProvider = ({
   const getPatientRecordsById = (
     id: string,
   ): ExtendedPatientRecords | undefined => {
-    console.log("Here are the records: ", patientsRecords);
-    return patientsRecords?.find(
+    return pages[currentPage].records?.find(
       (record: ExtendedPatientRecords) => record._id === id,
     );
   };
 
   const contextValue = {
-    patientsRecords,
+    pages,
+    cursor,
     loading,
+    hasNextPage,
+    currentPage,
+    setCurrentPage,
     getPatientRecordsById,
+    fetchPatientsRecords,
   };
 
   return (

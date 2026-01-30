@@ -20,15 +20,29 @@ export const createPatientRecord = async (req: Request, res: Response) => {
 };
 
 export const retrievePatientsRecords = async (req: Request, res: Response) => {
-  try {
-    const allPatientsRecords = await PatientData.find();
+  const limit = Number(req.query.limit) || 10;
+  const cursor = req.query.cursor as string | undefined;
 
-    if (allPatientsRecords) {
-      res.status(200).json({ records: allPatientsRecords });
-    }
-  } catch (err: any) {
-    res.status(500).json({ message: "Server error", error: err.message });
-  }
+  const query = cursor ? { _id: { $lt: cursor } } : {};
+
+  const records = await PatientData.find(query)
+    .sort({ _id: -1 })
+    .limit(limit + 1);
+
+  const hasNextPage = records.length > limit;
+
+  const slicedRecords = hasNextPage ? records.slice(0, limit) : records;
+
+  const nextCursor =
+    slicedRecords.length > 0 && hasNextPage
+      ? slicedRecords[slicedRecords.length - 1]?._id
+      : null;
+
+  res.json({
+    records: slicedRecords,
+    nextCursor,
+    hasNextPage,
+  });
 };
 
 export const inputDoctorReport = async (req: Request, res: Response) => {
