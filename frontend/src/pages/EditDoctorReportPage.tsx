@@ -7,16 +7,16 @@ import PageHeaderComponent from "../components/PageHeaderComponent";
 
 import { usePatientsRecordsContext } from "./../hooks/usePatientsRecordsContext";
 
+const location = useLocation();
+
+const queryParams = new URLSearchParams(location.search);
+
+const recordId = queryParams.get("id");
+
+const { getPatientRecordsById } = usePatientsRecordsContext();
+const patientRecords = getPatientRecordsById(recordId as string);
+
 const DoctorInputPage = () => {
-  const location = useLocation();
-  const { getPatientRecordsById } = usePatientsRecordsContext();
-
-  const queryParams = new URLSearchParams(location.search);
-
-  const recordId = queryParams.get("id");
-
-  const patientRecords = getPatientRecordsById(recordId as string);
-
   return (
     <>
       <PageHeaderComponent
