@@ -225,6 +225,8 @@ export const issueCertViaEmail = async (req: Request, res: Response) => {
         certificateHash,
       );
 
+      console.log("Inside issue certificate route: ", message);
+
       if (message) {
         res
           .status(200)

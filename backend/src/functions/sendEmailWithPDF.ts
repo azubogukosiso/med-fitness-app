@@ -71,6 +71,8 @@ export const sendEmailWithPDF = async (
 
     const response = await emailAPI.sendTransacEmail(message);
 
+    console.log("Inside sendEmailWithPDF function:", response);
+
     if (response) {
       return "Email sent successfully!";
     }

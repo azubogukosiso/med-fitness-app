@@ -1,4 +1,3 @@
-// controllers/certificate.controller.ts
 import { Request, Response } from "express";
 import Certificate from "../models/certificate";
 import { generateCertificateHash } from "../functions/generateCertificateHash";
