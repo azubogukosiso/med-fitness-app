@@ -6,6 +6,9 @@ import { useQuery } from "@tanstack/react-query";
 import EditDoctorReportComponent from "../components/EditDoctorReportComponent";
 import PageHeaderComponent from "../components/PageHeaderComponent";
 
+// TYPE IMPORTS
+import type { ExtendedPatientRecords } from "../types/ExtendedPatientRecordsType";
+
 import { usePatientsRecordsContext } from "./../hooks/usePatientsRecordsContext";
 
 const DoctorInputPage = () => {
@@ -22,9 +25,7 @@ const DoctorInputPage = () => {
     data: patientRecords,
     isLoading,
     error,
-  } = useQuery<
-    import("../types/ExtendedPatientRecordsType").ExtendedPatientRecords | null
-  >({
+  } = useQuery<ExtendedPatientRecords | null>({
     queryKey: ["patientRecord", recordId],
     queryFn: async () => {
       const res = await fetch(

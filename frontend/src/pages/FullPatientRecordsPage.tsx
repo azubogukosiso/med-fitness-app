@@ -1,21 +1,47 @@
 // LIBRARY IMPORTS
 import { useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 // FUNCTION OR COMPONENT IMPORTS
 import FullPatientRecordsComponent from "../components/FullPatientRecordsComponent";
 import PageHeaderComponent from "../components/PageHeaderComponent";
 
-import { usePatientsRecordsContext } from "./../hooks/usePatientsRecordsContext";
+// TYPE IMPORTS
+import type { ExtendedPatientRecords } from "../types/ExtendedPatientRecordsType";
 
 const FullPatientRecordsPage = () => {
   const location = useLocation();
-  const { getPatientRecordsById } = usePatientsRecordsContext();
 
   const queryParams = new URLSearchParams(location.search);
 
   const recordId = queryParams.get("id");
 
-  const patientRecords = getPatientRecordsById(recordId as string);
+  const {
+    data: patientRecords,
+    isLoading,
+    error,
+  } = useQuery<ExtendedPatientRecords | undefined>({
+    queryKey: ["patientRecord", recordId],
+    queryFn: async () => {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/patient/record?id=${recordId}`,
+        { credentials: "include" },
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch patient record");
+      }
+
+      return (await res.json()) as import("../types/ExtendedPatientRecordsType").ExtendedPatientRecords;
+    },
+    enabled: !!recordId,
+  });
+
+  if (!recordId) return <p>Missing record id</p>;
+
+  if (isLoading) return null;
+
+  if (error) return <p>Failed to load patient record</p>;
 
   console.log("Patient Records: ", patientRecords);
 
