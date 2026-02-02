@@ -20,7 +20,7 @@ import GentoUrinarySystemComponent from "./DoctorInputFormComponentSections/Gent
 
 import { editPatientDataFromDoctorInput } from "../functions/editPatientDataFromDoctorInput";
 
-type DoctorInputRecordsFormComponentProps = {
+type EditDoctorReportComponentProps = {
   recordId: string;
   doctorReport?: {
     relevantExaminationFormData: RelevantExaminationFormDataType;
@@ -33,10 +33,10 @@ type DoctorInputRecordsFormComponentProps = {
   };
 };
 
-const DoctorInputRecordsFormComponent = ({
+const EditDoctorReportComponent = ({
   recordId,
   doctorReport,
-}: DoctorInputRecordsFormComponentProps) => {
+}: EditDoctorReportComponentProps) => {
   const [relevantExaminationFormData, setRelevantExaminationFormData] =
     useState<RelevantExaminationFormDataType>({
       height: doctorReport?.relevantExaminationFormData.height,
@@ -221,4 +221,4 @@ const DoctorInputRecordsFormComponent = ({
   );
 };
 
-export default DoctorInputRecordsFormComponent;
+export default EditDoctorReportComponent;

@@ -95,121 +95,6 @@ export const inputDoctorReport = async (req: Request, res: Response) => {
   }
 };
 
-export const editDoctorReportWithNewSignature = async (
-  req: Request,
-  res: Response,
-) => {
-  try {
-    const recordId = req.query.id;
-
-    const uploadedFile = req.file;
-
-    const imgURL = await cloudinaryImageUpload(
-      uploadedFile!,
-      "esut_med_fitness_app",
-    );
-
-    const relevantExaminationFormData = JSON.parse(
-      req.body.relevantExaminationFormData,
-    );
-    const cardiovascularSystemsFormData = JSON.parse(
-      req.body.cardiovascularSystemsFormData,
-    );
-    const centralNervousSystemFormData = JSON.parse(
-      req.body.centralNervousSystemFormData,
-    );
-    const respiratorySystemFormData = JSON.parse(
-      req.body.respiratorySystemFormData,
-    );
-    const gastrointestinalTractSystemFormData = JSON.parse(
-      req.body.gastrointestinalTractSystemFormData,
-    );
-    const gentoUrinarySystemFormData = JSON.parse(
-      req.body.gentoUrinarySystemFormData,
-    );
-    const commentsFormData = JSON.parse(req.body.commentsFormData);
-
-    commentsFormData.signatureOfDoctor = imgURL;
-
-    const formData = {
-      relevantExaminationFormData,
-      cardiovascularSystemsFormData,
-      centralNervousSystemFormData,
-      respiratorySystemFormData,
-      gastrointestinalTractSystemFormData,
-      gentoUrinarySystemFormData,
-      commentsFormData,
-    };
-
-    const updatedPatientRecord = await PatientData.findByIdAndUpdate(
-      recordId,
-      {
-        doctorReport: formData,
-      },
-      { new: true },
-    );
-
-    if (updatedPatientRecord) {
-      res.status(201).json({ message: "Doctor's report added!" });
-    }
-  } catch (err: any) {
-    res.status(500).json({ message: "Server error", error: err });
-  }
-};
-
-export const editDoctorReportWithOldSignature = async (
-  req: Request,
-  res: Response,
-) => {
-  try {
-    const recordId = req.query.id;
-
-    const relevantExaminationFormData = JSON.parse(
-      req.body.relevantExaminationFormData,
-    );
-    const cardiovascularSystemsFormData = JSON.parse(
-      req.body.cardiovascularSystemsFormData,
-    );
-    const centralNervousSystemFormData = JSON.parse(
-      req.body.centralNervousSystemFormData,
-    );
-    const respiratorySystemFormData = JSON.parse(
-      req.body.respiratorySystemFormData,
-    );
-    const gastrointestinalTractSystemFormData = JSON.parse(
-      req.body.gastrointestinalTractSystemFormData,
-    );
-    const gentoUrinarySystemFormData = JSON.parse(
-      req.body.gentoUrinarySystemFormData,
-    );
-    const commentsFormData = JSON.parse(req.body.commentsFormData);
-
-    const formData = {
-      relevantExaminationFormData,
-      cardiovascularSystemsFormData,
-      centralNervousSystemFormData,
-      respiratorySystemFormData,
-      gastrointestinalTractSystemFormData,
-      gentoUrinarySystemFormData,
-      commentsFormData,
-    };
-
-    const updatedPatientRecord = await PatientData.findByIdAndUpdate(
-      recordId,
-      {
-        doctorReport: formData,
-      },
-      { new: true },
-    );
-
-    if (updatedPatientRecord) {
-      res.status(201).json({ message: "Doctor's report added!" });
-    }
-  } catch (err: any) {
-    res.status(500).json({ message: "Server error", error: err });
-  }
-};
-
 export const issueCertViaEmail = async (req: Request, res: Response) => {
   try {
     const certificateId = randomUUID();
@@ -248,5 +133,31 @@ export const issueCertViaEmail = async (req: Request, res: Response) => {
   } catch (error) {
     console.log("Here we are again:", error);
     res.status(500).json({ error: "Failed to send email" });
+  }
+};
+
+export const retrieveSinglePatientRecord = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const recordId = req.query.id as string | undefined;
+
+    if (!recordId) {
+      return res.status(400).json({ message: "Record id is required" });
+    }
+
+    const record = await PatientData.findById(recordId);
+
+    if (!record) {
+      return res.status(404).json({ message: "Record not found" });
+    }
+
+    res.json(record);
+  } catch (err: any) {
+    console.error("Failed to retrieve patient record:", err);
+    res
+      .status(500)
+      .json({ message: "Server error", error: err?.message ?? err });
   }
 };
