@@ -35,9 +35,9 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const token = jwt.sign(
-      { userId: user._id, schoolEmail: user.schoolEmail },
+      { userId: user._id, schoolEmail: user.emailAddress },
       JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "7d" },
     );
 
     res.cookie("token", token, {
@@ -49,7 +49,7 @@ export const login = async (req: Request, res: Response) => {
 
     res.json({
       message: "Login successful",
-      user: { schoolEmail: user.schoolEmail, isDoctor: user.isDoctor },
+      user: { schoolEmail: user.emailAddress, isDoctor: user.isDoctor },
     });
   } catch (err: any) {
     res.status(500).json({ message: "Server error", error: err.message });
