@@ -43,8 +43,6 @@ const FullPatientRecordsPage = () => {
 
   if (error) return <p>Failed to load patient record</p>;
 
-  console.log("Patient Records: ", patientRecords);
-
   return (
     <>
       <PageHeaderComponent
