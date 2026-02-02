@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { randomUUID } from "crypto";
 
 import { sendEmailWithPDF } from "../functions/sendEmailWithPDF";
-import { cloudinaryImageUpload } from "../functions/cloudinaryImageUpload";
 
 import PatientData from "../models/patientData";
 import Certificate from "../models/certificate";
