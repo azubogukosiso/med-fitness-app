@@ -22,7 +22,7 @@ export const sendCreatePasswordEmail = async (
 
     let message = new SendSmtpEmail();
     message.subject = "Create A Password For Your Account";
-    message.htmlContent = `<html><head></head><body style="font-size: 16px;"><p>Your email has been successfully verified!</p><p>You can now create a password for your patient account.</p><p>Click this link to create your password: <br></br> <a style="background-color: blue; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;" href="${process.env.CLIENT_URL}/create-password?id=${userId}">Create Password</a></p></body></html>`;
+    message.htmlContent = `<html><head></head><body style="font-size: 16px;"><p>Your email has been successfully verified!</p><p>You can now create a password for your patient account.</p><p>Click this link to create your password: <br></br> <a style="background-color: blue; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;" href="${process.env.CLIENT_URL}/create-password?id=${userId}">Create Password</a></p><p>If you didn't request this, please ignore this email.</p></body></html>`;
     message.sender = {
       name: "ESUT Medical Center",
       email: "azuboguko@gmail.com",
