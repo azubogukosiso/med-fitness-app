@@ -48,25 +48,15 @@ export const inputDoctorReport = async (req: Request, res: Response) => {
   try {
     const recordId = req.query.id;
 
-    const relevantExaminationFormData = JSON.parse(
-      req.body.relevantExaminationFormData,
-    );
-    const cardiovascularSystemsFormData = JSON.parse(
-      req.body.cardiovascularSystemsFormData,
-    );
-    const centralNervousSystemFormData = JSON.parse(
-      req.body.centralNervousSystemFormData,
-    );
-    const respiratorySystemFormData = JSON.parse(
-      req.body.respiratorySystemFormData,
-    );
-    const gastrointestinalTractSystemFormData = JSON.parse(
-      req.body.gastrointestinalTractSystemFormData,
-    );
-    const gentoUrinarySystemFormData = JSON.parse(
-      req.body.gentoUrinarySystemFormData,
-    );
-    const commentsFormData = JSON.parse(req.body.commentsFormData);
+    const {
+      relevantExaminationFormData,
+      cardiovascularSystemsFormData,
+      centralNervousSystemFormData,
+      respiratorySystemFormData,
+      gastrointestinalTractSystemFormData,
+      gentoUrinarySystemFormData,
+      commentsFormData,
+    } = req.body;
 
     const formData = {
       relevantExaminationFormData,
@@ -90,6 +80,7 @@ export const inputDoctorReport = async (req: Request, res: Response) => {
       res.status(201).json({ message: "Doctor's report added!" });
     }
   } catch (err: any) {
+    console.log("Here it is: ", err);
     res.status(500).json({ message: "Server error", error: err });
   }
 };
@@ -130,7 +121,6 @@ export const issueCertViaEmail = async (req: Request, res: Response) => {
       }
     }
   } catch (error) {
-    console.log("Here we are again:", error);
     res.status(500).json({ error: "Failed to send email" });
   }
 };

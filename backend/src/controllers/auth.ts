@@ -3,6 +3,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user";
 
+import { sendCreatePasswordEmail } from "../functions/sendCreatePasswordEmail";
+
 const JWT_SECRET =
   process.env.JWT_SECRET || "your-secret-key-change-in-production";
 
@@ -18,18 +20,65 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
+export const verifyEmail = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findOne({ emailAddress: req.body.emailAddress });
+
+    if (user) {
+      const message = await sendCreatePasswordEmail(
+        req.body.emailAddress,
+        user._id.toString(),
+      );
+
+      if (message) {
+        res
+          .status(200)
+          .json({ message: "Email verified successfully", success: true });
+      }
+    } else {
+      res
+        .status(200)
+        .json({ message: "This email does not exist", success: false });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const createPassword = async (req: Request, res: Response) => {
+  try {
+    const { userId, password } = req.body;
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { password: hashedPassword },
+      { new: true },
+    );
+
+    if (user) {
+      res.status(200).json({ message: "Password created successfully!" });
+    } else {
+      res.status(400).json({ message: "Failed to create password" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 export const login = async (req: Request, res: Response) => {
   try {
-    const { schoolEmail, password } = req.body;
+    const { emailAddress, password } = req.body;
 
-    const user = await User.findOne({ schoolEmail });
+    const user = await User.findOne({ emailAddress });
     if (!user) {
       return res
         .status(400)
         .json({ message: "User with this email does not exist!" });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password as string);
     if (!isMatch) {
       return res.status(400).json({ message: "Incorrect password!" });
     }

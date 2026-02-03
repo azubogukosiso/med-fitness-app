@@ -5,6 +5,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRouteComponent from "./components/ProtectedRouteComponent";
 import PublicRouteComponent from "./components/PublicRouteComponent";
 
+import VerifyEmailPage from "./pages/VerifyEmailPage";
 import LoginPage from "./pages/LoginPage";
 import PatientInputPage from "./pages/PatientInputPage";
 import DoctorInputRecordsPage from "./pages/DoctorInputRecordsPage";
@@ -13,16 +14,21 @@ import PatientsRecordsPage from "./pages/PatientsRecordsPage";
 import FullPatientRecordsPage from "./pages/FullPatientRecordsPage";
 import EditDoctorReportPage from "./pages/EditDoctorReportPage";
 import CertificateVerificationPage from "./pages/CertificateVerificationPage";
-
-// import { useAuthContext } from "./hooks/useAuthContext";
+import CreatePasswordPage from "./pages/CreatePasswordPage";
 
 function App() {
-  // const { user } = useAuthContext();
-
   return (
     <div className="min-h-screen p-5">
       <Routes>
         <Route path="/" element={<Navigate to="/patient" />}></Route>
+        <Route
+          path="/verify-email"
+          element={
+            <PublicRouteComponent>
+              <VerifyEmailPage />
+            </PublicRouteComponent>
+          }
+        ></Route>
         <Route
           path="/login"
           element={
@@ -30,7 +36,6 @@ function App() {
               <LoginPage />
             </PublicRouteComponent>
           }
-          // element={user ? <Navigate to="/patient" /> : <LoginPage />}
         ></Route>
         <Route
           path="/patient"
@@ -39,7 +44,6 @@ function App() {
               <PatientInputPage />
             </ProtectedRouteComponent>
           }
-          // element={user ? <PatientInputPage /> : <Navigate to="/login" />}
         ></Route>
         <Route
           path="/doctor/records"
@@ -76,7 +80,15 @@ function App() {
         <Route
           path="/verify/:certificateId"
           element={<CertificateVerificationPage />}
-        />
+        ></Route>
+        <Route
+          path="/create-password"
+          element={
+            <PublicRouteComponent>
+              <CreatePasswordPage />
+            </PublicRouteComponent>
+          }
+        ></Route>
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
     </div>

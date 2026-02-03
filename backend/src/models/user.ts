@@ -2,21 +2,82 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
+    },
+    otherName: {
+      type: String,
+    },
+    dateOfBirth: {
+      type: String,
+    },
+    gender: {
+      type: String,
+    },
+    stateOfOrigin: {
+      type: String,
+    },
+    lga: {
+      type: String,
+    },
+    level: {
+      type: String,
+    },
+    jambNumber: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+    nin: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+    phoneNumber: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+    program: {
+      type: String,
+    },
+    faculty: {
+      type: String,
+    },
+    department: {
+      type: String,
+    },
+    duration: {
+      type: String,
+    },
+    totalFees: {
+      type: Number,
+    },
+    academicSession: {
+      type: String,
+    },
     emailAddress: {
       type: String,
-      required: true,
       unique: true,
+      required: true,
       lowercase: true,
-      // match: /^[^\s@]+@[^\s@]+\.edu$/,
+      trim: true,
     },
     password: {
       type: String,
-      required: true,
     },
     isDoctor: {
       type: Boolean,
-      required: true,
       default: false,
+      required: true,
+    },
+    regNo: {
+      type: String,
+      unique: true,
+      sparse: true,
     },
   },
   { timestamps: true },

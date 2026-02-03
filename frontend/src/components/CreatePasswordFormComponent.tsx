@@ -1,14 +1,18 @@
 // LIBRARY IMPORTS
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 // FUNCTION OR COMPONENT IMPORTS
 import { useAuthContext } from "../hooks/useAuthContext";
 
-const LoginFormComponent = () => {
-  const { login } = useAuthContext();
+const CreatePasswordFormComponent = () => {
+  const location = useLocation();
 
-  const [emailAddress, setEmailAddress] = useState("");
+  const queryParams = new URLSearchParams(location.search);
+  const userId = queryParams.get("id");
+
+  const { createPassword } = useAuthContext();
+
   const [password, setPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -16,23 +20,13 @@ const LoginFormComponent = () => {
   return (
     <form
       className="w-1/2"
-      onSubmit={(e) => login(e, emailAddress, password, setIsLoading)}
+      onSubmit={(e) =>
+        createPassword(e, password, setIsLoading, userId as string)
+      }
     >
-      <h3>Log In to your account</h3>
+      <h3>Create your password</h3>
 
       <div className="mt-5">
-        <div className="flex flex-col mb-7">
-          <label htmlFor="emailAddress">Email Address:</label>
-          <input
-            type="email"
-            id="emailAddress"
-            value={emailAddress}
-            onChange={(e) => setEmailAddress(e.target.value)}
-            placeholder="Type out your school email here..."
-            className="focus:!outline-none p-2 bg-white border border-t-0 border-l-0 border-r-0 border-b-black w-full"
-          />
-        </div>
-
         <div className="flex flex-col mb-7">
           <label htmlFor="password">Password:</label>
           <span className="flex border border-black border-t-0 border-l-0 border-r-0 border-b-black p-1">
@@ -83,18 +77,18 @@ const LoginFormComponent = () => {
           }`}
           disabled={isLoading ? true : false}
         >
-          {isLoading ? "Logging In..." : "Log In"}
+          {isLoading ? "Creating Password..." : "Create Password"}
         </button>
       </div>
 
       <p className="mt-5">
         Click here to{" "}
-        <Link to="/verify-email" className="underline">
-          verify your email address
+        <Link to="/login" className="underline">
+          login to your account
         </Link>
       </p>
     </form>
   );
 };
 
-export default LoginFormComponent;
+export default CreatePasswordFormComponent;

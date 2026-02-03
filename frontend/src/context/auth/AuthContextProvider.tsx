@@ -31,7 +31,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         `${import.meta.env.VITE_API_URL}/api/auth/verify`,
         {
           credentials: "include",
-        }
+        },
       );
       if (res.ok) {
         const data = await res.json();
@@ -44,11 +44,93 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
   };
 
-  const login = async (
-    e: React.FormEvent<HTMLFormElement>,
-    schoolEmail: string,
+  const verifyEmail = async (
+    e: React.SubmitEvent<HTMLFormElement>,
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    emailAddress: string,
+  ) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/verify-email`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ emailAddress }),
+        },
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        if (data.success) {
+          toast.success(data.message, {
+            description:
+              "A link for password creation has been sent to your email address",
+          });
+        } else {
+          toast.error(data.message);
+        }
+      } else {
+        toast.error(data.message);
+      }
+    } catch (err) {
+      console.error("Email verification failed:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const createPassword = async (
+    e: React.SubmitEvent<HTMLFormElement>,
     password: string,
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    userId: string,
+  ) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/create-password`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ password, userId }),
+        },
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success(data.message, {
+          description: "You can now log in with your new password",
+        });
+        return { success: true };
+      }
+
+      toast.error(data.message);
+      return { success: false };
+    } catch (err) {
+      console.error("Failed to create password:", err);
+      return { success: false };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const login = async (
+    e: React.SubmitEvent<HTMLFormElement>,
+    emailAddress: string,
+    password: string,
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    isDoctorLogin?: boolean,
   ) => {
     e.preventDefault();
 
@@ -61,8 +143,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
-          body: JSON.stringify({ schoolEmail, password }),
-        }
+          body: JSON.stringify({ emailAddress, password, isDoctorLogin }),
+        },
       );
 
       const data = await res.json();
@@ -90,7 +172,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         {
           method: "POST",
           credentials: "include",
-        }
+        },
       );
 
       if (res.ok) {
@@ -105,6 +187,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
   const contextValue = {
     user,
+    verifyEmail,
+    createPassword,
     login,
     logout,
     loading,

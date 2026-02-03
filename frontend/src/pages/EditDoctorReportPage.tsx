@@ -9,14 +9,8 @@ import PageHeaderComponent from "../components/PageHeaderComponent";
 // TYPE IMPORTS
 import type { ExtendedPatientRecords } from "../types/ExtendedPatientRecordsType";
 
-import { usePatientsRecordsContext } from "./../hooks/usePatientsRecordsContext";
-
 const DoctorInputPage = () => {
   const location = useLocation();
-  const { currentPage, pages } = usePatientsRecordsContext();
-
-  console.log("Current page in EditDoctorReportPage: ", currentPage);
-  console.log("Pages in EditDoctorReportPage: ", pages);
 
   const queryParams = new URLSearchParams(location.search);
   const recordId = queryParams.get("id");

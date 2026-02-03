@@ -56,7 +56,7 @@ export const sendEmailWithPDF = async (
     let message = new SendSmtpEmail();
     message.subject = "Your Medical Fitness Certificate";
     message.textContent =
-      "Please find your medical fitness certificate attached below.";
+      "Please find your medical fitness certificate attached below. If you didn't request this, please ignore this email.";
     message.sender = {
       name: "ESUT Medical Center",
       email: "azuboguko@gmail.com",

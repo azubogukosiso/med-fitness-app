@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import type { PatientFormDataFromDoctorInputType } from "../types/PatientFormDataFromDoctorInputType";
 
 export const savePatientDataFromDoctorInput = async (
-  e: React.FormEvent<HTMLFormElement>,
+  e: React.SubmitEvent<HTMLFormElement>,
   {
     relevantExaminationFormData,
     cardiovascularSystemsFormData,
@@ -16,38 +16,21 @@ export const savePatientDataFromDoctorInput = async (
     commentsFormData,
   }: PatientFormDataFromDoctorInputType,
   recordId: string,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   e.preventDefault();
 
   setIsLoading(true);
 
-  const formData = new FormData();
-  formData.append(
-    "relevantExaminationFormData",
-    JSON.stringify(relevantExaminationFormData)
-  );
-  formData.append(
-    "cardiovascularSystemsFormData",
-    JSON.stringify(cardiovascularSystemsFormData)
-  );
-  formData.append(
-    "centralNervousSystemFormData",
-    JSON.stringify(centralNervousSystemFormData)
-  );
-  formData.append(
-    "respiratorySystemFormData",
-    JSON.stringify(respiratorySystemFormData)
-  );
-  formData.append(
-    "gastrointestinalTractSystemFormData",
-    JSON.stringify(gastrointestinalTractSystemFormData)
-  );
-  formData.append(
-    "gentoUrinarySystemFormData",
-    JSON.stringify(gentoUrinarySystemFormData)
-  );
-  formData.append("commentsFormData", JSON.stringify(commentsFormData));
+  const payload = {
+    relevantExaminationFormData,
+    cardiovascularSystemsFormData,
+    centralNervousSystemFormData,
+    respiratorySystemFormData,
+    gastrointestinalTractSystemFormData,
+    gentoUrinarySystemFormData,
+    commentsFormData,
+  };
 
   try {
     const res = await fetch(
@@ -55,8 +38,9 @@ export const savePatientDataFromDoctorInput = async (
       {
         method: "POST",
         credentials: "include",
-        body: formData,
-      }
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      },
     );
 
     const data = await res.json();
