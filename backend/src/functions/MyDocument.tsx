@@ -211,7 +211,7 @@ const MyDocument = ({
           <Text style={styles.certHeading}>MEDICAL CERTIFICATE OF FITNESS</Text>
           <Text style={styles.certBody}>
             A Medical Examination has been conducted on Chief/Prof./Mr./Mrs./Ms.
-            <Text> {name} </Text>and I hereby certify him/her to be in good
+            Olaenwaju Oluwaseyi, and I hereby certify him/her to be in good
             mental and physical condition, and is free from any physical defect
             which may interfere with his/her studies/duties/activities.
           </Text>
