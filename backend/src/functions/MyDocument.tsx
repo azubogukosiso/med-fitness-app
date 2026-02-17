@@ -11,7 +11,7 @@ import QRCode from "qrcode";
 
 const styles = StyleSheet.create({
   page: {
-    padding: 30,
+    padding: 10,
     fontSize: "15px",
   },
   heading: {
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     objectFit: "cover",
   },
   details: {
-    marginTop: 20,
+    marginTop: 0,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   certHeading: {
     fontWeight: "bold",
     fontStyle: "italic",
-    marginTop: 30,
+    marginTop: 10,
     marginBottom: 20,
     textAlign: "center",
     fontFamily: "Times-Roman",
