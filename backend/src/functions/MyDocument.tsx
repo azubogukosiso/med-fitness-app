@@ -11,7 +11,7 @@ import QRCode from "qrcode";
 
 const styles = StyleSheet.create({
   page: {
-    padding: 10,
+    padding: 20,
     fontSize: "15px",
   },
   heading: {
@@ -210,8 +210,7 @@ const MyDocument = ({
         <View>
           <Text style={styles.certHeading}>MEDICAL CERTIFICATE OF FITNESS</Text>
           <Text style={styles.certBody}>
-            A Medical Examination has been conducted on Chief/Prof./Mr./Mrs./Ms.
-            Olaenwaju Oluwaseyi, and I hereby certify him/her to be in good
+            A Medical Examination has been conducted on Chief/Prof./Mr./Mrs./Ms. {name}, and I hereby certify him/her to be in good
             mental and physical condition, and is free from any physical defect
             which may interfere with his/her studies/duties/activities.
           </Text>
