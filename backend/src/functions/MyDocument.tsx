@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     fontFamily: "Times-Roman",
   },
   footer: {
-    marginTop: 40,
+    marginTop: 55,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
