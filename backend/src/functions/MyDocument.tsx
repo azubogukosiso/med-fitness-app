@@ -185,7 +185,7 @@ const MyDocument = ({
             </Text>
             <Text>
               Website:{" "}
-              <Text style={styles.timesNewRomanFont}>www.esutportal.net</Text>
+              <Text style={styles.timesNewRomanFont}>https://www.esut.edu.ng</Text>
             </Text>
           </View>
           <View style={styles.imgContainer}>
