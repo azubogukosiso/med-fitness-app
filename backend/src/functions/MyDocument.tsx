@@ -181,11 +181,10 @@ const MyDocument = ({
         <View style={styles.details}>
           <View>
             <Text>
-              Tel: <Text style={styles.timesNewRomanFont}>080371024656</Text>
-            </Text>
-            <Text>
               Website:{" "}
-              <Text style={styles.timesNewRomanFont}>https://www.esut.edu.ng</Text>
+              <Text style={styles.timesNewRomanFont}>
+                https://www.esut.edu.ng
+              </Text>
             </Text>
           </View>
           <View style={styles.imgContainer}>
@@ -210,9 +209,10 @@ const MyDocument = ({
         <View>
           <Text style={styles.certHeading}>MEDICAL CERTIFICATE OF FITNESS</Text>
           <Text style={styles.certBody}>
-            A Medical Examination has been conducted on Chief/Prof./Mr./Mrs./Ms. {name}, and I hereby certify him/her to be in good
-            mental and physical condition, and is free from any physical defect
-            which may interfere with his/her studies/duties/activities.
+            A Medical Examination has been conducted on Chief/Prof./Mr./Mrs./Ms.{" "}
+            {name}, and I hereby certify him/her to be in good mental and
+            physical condition, and is free from any physical defect which may
+            interfere with his/her studies/duties/activities.
           </Text>
         </View>
 
