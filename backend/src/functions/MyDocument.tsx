@@ -7,11 +7,11 @@ import {
   Image,
   Link,
 } from "@react-pdf/renderer";
-import QRCode from "qrcode";
+import { relative } from "path";
 
 const styles = StyleSheet.create({
   page: {
-    padding: 30,
+    padding: 25,
     fontSize: "15px",
   },
   heading: {
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
     width: 200,
     height: 90,
+    top: 20,
   },
   thirdDetail: {
     fontWeight: "bold",
@@ -58,6 +59,9 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     marginTop: 20,
     fontFamily: "Times-Roman",
+  },
+  certMainText: {
+    marginTop: 5,
   },
   certHeading: {
     fontWeight: "bold",
@@ -93,13 +97,13 @@ const styles = StyleSheet.create({
     height: 85,
     transform: "rotate(5deg)",
     position: "absolute",
-    left: -15,
-    top: 20,
+    left: -5,
+    top: 40,
   },
   signatureLabel: {
     fontFamily: "Times-Roman",
     fontStyle: "italic",
-    marginBottom: 15,
+    marginTop: 15,
   },
   signature: {
     marginTop: 10,
@@ -203,15 +207,15 @@ const MyDocument = ({
 
         <View style={styles.certDetails}>
           <Text>Our Ref: ESUT/MC/025</Text>
-          <Text>Certificate No: {certificateId}</Text>
+          <Text>Certificate No.: {certificateId}</Text>
         </View>
 
-        <View>
+        <View style={styles.certMainText}>
           <Text style={styles.certHeading}>MEDICAL CERTIFICATE OF FITNESS</Text>
           <Text style={styles.certBody}>
-            A Medical Examination has been conducted on Chief/Prof./Mr./Mrs./Ms.{" "}
+            A medical examination has been conducted on Chief/Prof./Mr./Mrs./Ms.{" "}
             {name}, and I hereby certify him/her to be in good mental and
-            physical condition, and is free from any physical defect which may
+            physical condition, and free from any physical defect which may
             interfere with his/her studies/duties/activities.
           </Text>
         </View>
