@@ -11,7 +11,7 @@ import QRCode from "qrcode";
 
 const styles = StyleSheet.create({
   page: {
-    padding: 20,
+    padding: 30,
     fontSize: "15px",
   },
   heading: {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     fontFamily: "Times-Roman",
   },
   footer: {
-    marginTop: 55,
+    marginTop: 65,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
