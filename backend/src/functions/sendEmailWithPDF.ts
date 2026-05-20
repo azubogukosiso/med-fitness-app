@@ -58,9 +58,9 @@ export const sendEmailWithPDF = async (
     message.htmlContent = `<html><head></head><body style="font-size: 16px;"><p>Please find your medical fitness certificate attached below.</p><p>If you didn't request this, please ignore this email.</p></body></html>`;
     message.sender = {
       name: "ESUT Medical Center",
-      email: "azuboguko@gmail.com",
+      email: "director.medical@esut.edu.ng",
     };
-    message.to = [{ email: "azuboguko@gmail.com", name: "Kosiso Azubogu" }];
+    message.to = [{ email: "directorictc@esut.edu.ng.com", name: "Name of Reciepient" }];
     message.attachment = [
       {
         name: "Medical Fitness Certificate.pdf",
