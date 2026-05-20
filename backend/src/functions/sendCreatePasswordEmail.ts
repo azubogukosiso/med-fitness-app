@@ -27,7 +27,7 @@ export const sendCreatePasswordEmail = async (
       name: "ESUT Medical Center",
       email: "azuboguko@gmail.com",
     };
-    message.to = [{ email: "azuboguko@gmail.com", name: "Kosiso Azubogu" }];
+    message.to = [{ email: "directorictc@esut.edu.ng", name: "Name of Director" }];
 
     const response = await emailAPI.sendTransacEmail(message);
 
